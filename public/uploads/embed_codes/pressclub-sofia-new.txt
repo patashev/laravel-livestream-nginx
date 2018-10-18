@@ -1,0 +1,56 @@
+<style>
+      .info { background-color: #eee; border: thin solid #333; border-radius: 3px; padding: 0 5px; margin: 20px 0; }
+      video { width: 100%; height: auto;}
+    </style>
+    <link href='https://newlive.bta.bg/css/video-js.css' rel='stylesheet'>
+    <script src='https://newlive.bta.bg/js/video.js'></script>
+      <script src='https://newlive.bta.bg/js/videojs-contrib-hls.min.js'></script>
+      <script src='https://newlive.bta.bg/js/videojs.ga.min.js'></script>
+      </head>
+      <body>
+      <video id='video-pressclub-sofia-newpressclub-sofia-new'
+                      width='730'
+                      height='430'
+                      class='video-js vjs-default-skin'
+                      controls
+                      data-setup='{"fluid": true, "ga": {"eventsToTrack": ["error"]}}'
+                      poster='https://newlive.bta.bg/img/thumbs/thumb_pressclub-sofia-new.png'
+                      >
+        <source src='https://newlive.bta.bg/hls/pressclub-sofia-newm3u8' type='application/x-mpegURL'>
+      </video>
+      <script>
+      $.getJSON('https://newlive.bta.bg/admin/video-records/live-stream/getipstats', function(location, textStatus, jqXHR) {
+        localStorage['ip'] =  location.ip;
+        localStorage['el'] = $('.page-title h1').text();
+        return String(localStorage.url);
+      });
+      ff = localStorage.url;
+      function loadDoc() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+          console.log();
+        }
+      };
+        xhttp.open('GET', ff, true);
+        xhttp.send();
+      }
+
+      var videoId = document.getElementById('video-pressclub-sofia-new');
+      var player = videojs( videoId, {}, function() {
+        this.ga();
+      });
+      player.play( loadDoc() );
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-19978293-1', 'auto');
+        ga('send', {
+          hitType: 'event',
+          eventCategory: 'Videos',
+          eventAction: 'play',
+          eventLabel: 'BTA - pressclub-sofia-new'
+        });
+      </script>
