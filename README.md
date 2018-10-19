@@ -3,14 +3,19 @@ This project aims in video distribution. It is based on the idea, that video ser
 be set at home and by small users.
   It streams in adaptive bit rate. in HLS and DASH, and records all.(Of course fill free to edit
 		and modify the configurations as see fit for your needs.)
-		
-	The video player is build with <a href="https://videojs.com/">VideoJs</a> and several videojs plugins:
-	   - <a href="https://github.com/brightcove/videojs-thumbnails">videojs-thumbnails</a>
-		 - <a href="https://github.com/videojs/videojs-contrib-hls">videojs-contrib-hls</a>
-		 - <a href="https://github.com/mickey/videojs-ga">videojs.ga</a>
-		 - <a href="https://github.com/xbgmsharp/videojs-watermark">videojs.watermark</a>
-		 - <a href="https://www.npmjs.com/package/videojs-hls-quality-selector">videojs-hls-quality-selector</a>
-		 - <a href="https://github.com/brightcove/videojs-playlist">videojs-playlist</a>
+
+
+
+# The VIDEO PLAYER
+
+The video player is build with:
+	 - https://videojs.com/ - VideoJs
+	 - https://github.com/brightcove/videojs-thumbnails - videojs-thumbnails
+	 - https://github.com/videojs/videojs-contrib-hls - videojs-contrib-hls
+	 - https://github.com/mickey/videojs-ga - videojs.ga
+	 - https://github.com/xbgmsharp/videojs-watermark - videojs.watermark
+	 - https://www.npmjs.com/package/videojs-hls-quality-selector - videojs-hls-quality-selector
+	 - https://github.com/brightcove/videojs-playlist - videojs-playlist
 
 
 # Laravel CMS Starter Project
