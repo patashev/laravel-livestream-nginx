@@ -9,13 +9,13 @@ be set at home and by small users.
 # The VIDEO PLAYER
 
 The video player is build with:
-	 - https://videojs.com/ - VideoJs
-	 - https://github.com/brightcove/videojs-thumbnails - videojs-thumbnails
-	 - https://github.com/videojs/videojs-contrib-hls - videojs-contrib-hls
-	 - https://github.com/mickey/videojs-ga - videojs.ga
-	 - https://github.com/xbgmsharp/videojs-watermark - videojs.watermark
-	 - https://www.npmjs.com/package/videojs-hls-quality-selector - videojs-hls-quality-selector
-	 - https://github.com/brightcove/videojs-playlist - videojs-playlist
+ - https://videojs.com/ - VideoJs
+ - https://github.com/brightcove/videojs-thumbnails - videojs-thumbnails
+ - https://github.com/videojs/videojs-contrib-hls - videojs-contrib-hls
+ - https://github.com/mickey/videojs-ga - videojs.ga
+ - https://github.com/xbgmsharp/videojs-watermark - videojs.watermark
+ - https://www.npmjs.com/package/videojs-hls-quality-selector - videojs-hls-quality-selector
+ - https://github.com/brightcove/videojs-playlist - videojs-playlist
 
 
 # Laravel CMS Starter Project
