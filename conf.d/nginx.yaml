@@ -1,0 +1,6 @@
+init_config:
+
+instances:
+   nginx_status_url: https://['HOST_NAME']/basic_status/
+   user: ['HOST_USER']
+   password: ['HOST_PASSWORD']
