@@ -14,7 +14,6 @@ be set at home and by small users.
 
 
 
-
 # Laravel CMS Starter Project
 
 A Laravel CMS Starter project with AdminLTE theme and core features.
