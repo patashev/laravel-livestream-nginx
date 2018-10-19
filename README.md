@@ -11,6 +11,7 @@ A Laravel CMS Starter project with AdminLTE theme and core features.
 - Password: github
 
 ### What is New?
+- Upgraded to Laravel 5.7 and added many new 'components (blog, news, banners, etc)'
 - Upgraded to Laravel 5.5 and added many new 'components (blog, news, banners, etc)'
 - Page Builder (CRUD website pages with 3 different components)
 
@@ -30,7 +31,7 @@ A Laravel CMS Starter project with AdminLTE theme and core features.
 - Manage Blog, Banners, FAQ, Photos and many more.
 
 ## Setup (Basic)
-- ```composer create-project bpocallaghan/laravel-admin-starter:dev-master laravel-admin-starter```
+- ```composer create-project bpocallaghan/laravel-admin-starter:dev-master laravel-admin-live```
 - open .env and set the app info (url, title, description, etc)
 - create your database and set db name in .env
 - ```php artisan migrate```
@@ -59,11 +60,11 @@ A Laravel CMS Starter project with AdminLTE theme and core features.
         - go to (google analytics)[https://analytics.google.com/analytics/]
         - go to admin - property - user management and add the service account's email as a user
         - go to admin - view - settings and copy the 'site id' to your .env
-- get a Google Maps js API key (after you've created the project in google) https://developers.google.com/maps/documentation/javascript/get-api-key 
+- get a Google Maps js API key (after you've created the project in google) https://developers.google.com/maps/documentation/javascript/get-api-key
 - have a look at Admin\NavigationController.php on how to use datatables and datatables with ajax if more than 150 entries
 
 ## Admin LTE
-If you would like to change the default skin. 
+If you would like to change the default skin.
 Please have a look in `webpack.mix.js` Line ~110 and uncomment the desired skin.
 Please also remember to update the skin's name in `'views\layouts\admin.blade.php'` - `<body class="skin-blue">`
 
@@ -91,3 +92,5 @@ Please see the [CHANGELOG](http://bpocallaghan.co.za/changelog) for more informa
 - [Alert](https://github.com/bpocallaghan/alert) A helper package to flash a bootstrap alert to the browser via a Facade or a helper function.
 - [Impersonate User](https://github.com/bpocallaghan/impersonate) This allows you to authenticate as any of your customers.
 - [Sluggable](https://github.com/bpocallaghan/sluggable) Provides a HasSlug trait that will generate a unique slug when saving your Laravel Eloquent model.
+
+- [VideoJs](https://videojs.com/) Provides js library for the video player
