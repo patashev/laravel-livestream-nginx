@@ -1,3 +1,20 @@
+# DESCRIPTION
+This project aims in video distribution. It is based on the idea, that video servers CAN
+be set at home and by small users.
+  It streams in adaptive bit rate. in HLS and DASH, and records all.(Of course fill free to edit
+		and modify the configurations as see fit for your needs.)
+	The video player is build with <a href="https://videojs.com/">VideoJs</a> and several videojs plugins:
+	   - <a href="https://github.com/brightcove/videojs-thumbnails">videojs-thumbnails</a>
+		 - <a href="https://github.com/videojs/videojs-contrib-hls">videojs-contrib-hls</a>
+		 - <a href="https://github.com/mickey/videojs-ga">videojs.ga</a>
+		 - <a href="https://github.com/xbgmsharp/videojs-watermark">videojs.watermark</a>
+		 - <a href="https://www.npmjs.com/package/videojs-hls-quality-selector">videojs-hls-quality-selector</a>
+		 - <a href="https://github.com/brightcove/videojs-playlist">videojs-playlist</a>
+
+
+
+
+
 # Laravel CMS Starter Project
 
 A Laravel CMS Starter project with AdminLTE theme and core features.
@@ -6,9 +23,9 @@ A Laravel CMS Starter project with AdminLTE theme and core features.
 - Laravel 5.4 (Branch Laravel 5.4)
 - Laravel 5.2 (Branch Laravel 5.2)
 
-[Preview project here](http://bpocallaghan.co.za)
+<!-- [Preview project here](http://bpocallaghan.co.za)
 - User: github@bpocallaghan.co.za
-- Password: github
+- Password: github -->
 
 ### What is New?
 - Upgraded to Laravel 5.7 and added many new 'components (blog, news, banners, etc)'
@@ -29,6 +46,19 @@ A Laravel CMS Starter project with AdminLTE theme and core features.
 - Impersonate any of your customers
 - Roles, Assign roles to the user and navigation to exlude navigation for a user.
 - Manage Blog, Banners, FAQ, Photos and many more.
+
+## Setup of Nginx
+- Dowload nginx from https://nginx.org/download/nginx-1.15.4.tar.gz
+- ```composer create-project bpocallaghan/laravel-admin-starter:dev-master laravel-admin-live```
+- open .env and set the app info (url, title, description, etc)
+- create your database and set db name in .env
+- ```php artisan migrate```
+- ```php artisan db:seed```
+	- open database\seeds\UserTableSeeder.php to enter your admin user
+- open your browser (http://laravel-admin.local)
+- log into the admin (http://laravel-admin.local/admin) with your admin user
+
+
 
 ## Setup (Basic)
 - ```composer create-project bpocallaghan/laravel-admin-starter:dev-master laravel-admin-live```
