@@ -2,6 +2,7 @@
 This project aims in video distribution. It is based on the idea, that video servers CAN
 be set at home and by small users.
   It streams in adaptive bit rate. in HLS and DASH, and records all.(Of course fill free to edit and modify the configurations as see fit for your needs.)
+    
     The video player is build with <a href="https://videojs.com/">VideoJs</a> and several videojs plugins:
      - <a href="https://github.com/brightcove/videojs-thumbnails">videojs-thumbnails</a>
      - <a href="https://github.com/videojs/videojs-contrib-hls">videojs-contrib-hls</a>
