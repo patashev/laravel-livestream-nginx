@@ -59,7 +59,10 @@
         ],
         "psr-4": {
             "App\\": "app/"
-        }
+        },
+        "files": [
+            "app/Helpers/cdn_helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

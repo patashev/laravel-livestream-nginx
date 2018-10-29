@@ -30,8 +30,7 @@
 
 
           <?php case ($val->sidebar_types_id == '5'): ?>
-
-            <?php echo $__env->make('website.partials.sidebar_moduls.side_weather', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+              <?php echo $__env->make('website.partials.sidebar_moduls.side_weather', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
             <?php break; ?>
 
 

@@ -1,6 +1,19 @@
 <?php
 
 return [
+    /*
+     |--------------------------------------------------------------------------
+     | Application KeyCDN domains
+     |--------------------------------------------------------------------------
+     |
+     | Specify different domains for your assets.
+     |
+    */
+    'cdn' => array(
+            "live-da2e.kxcdn.com" => "css|js|eot|woff|ttf",
+            "live-da2e.kxcdn.com" => "jpg|jpeg|png|gif|svg",
+            "all.keycdn.com" => ""
+    ),
 
     'description' => env('APP_DESCRIPTION', 'Fallback Description'),
     'author'      => env('APP_AUTHOR', 'Fallback Author'),

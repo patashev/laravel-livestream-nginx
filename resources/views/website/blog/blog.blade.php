@@ -5,6 +5,7 @@
         @include('website.partials.page_header')
 
         <div class="row">
+
             <div class="body col-sm-7 col-lg-8">
                 @include('website.partials.breadcrumb')
 

@@ -5,7 +5,8 @@
                 <figure>
                     <?php if($item->cover_photo): ?>
                         <a href="/gallery/<?php echo e($item->slug); ?>" title="<?php echo e($item->cover_photo->name); ?>">
-                            <img src="<?php echo e($item->cover_photo->thumbUrl); ?>">
+
+                            <img src="<?php echo e(cdn('/uploads/photos/'.$item->cover_photo->filename)); ?>">
                         </a>
                     <?php endif; ?>
                 </figure>

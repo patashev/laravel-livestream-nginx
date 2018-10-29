@@ -20,7 +20,6 @@
           <h5>Времето за 16 октомври 2018</h5>
         </div>
         <div class="bc" style="margin-left:auto; margin-right:auto; width:300px;">
-
           @foreach($weather as $key => $val)
             @foreach($val as $key => $value)
               <?php $array[$value->cities->title][$key] = $value; ?>

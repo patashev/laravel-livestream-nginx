@@ -103,6 +103,9 @@ class BaseWebsiteController extends Controller
       $from = date('Y-m-d', strtotime('-1 day', strtotime($date)));
       $to = date('Y-m-d', strtotime('+1 day', strtotime($date)));
       $results = Weather::whereBetween('date', [$from,$to])->orderBy('date', 'ASC')->get();
+      if ($results->isEmpty()) {
+        $results = Weather::orderBy('date', 'desc')->limit(2)->get();
+      }
       return $results;
     }
 

@@ -34,7 +34,7 @@
                     </div>
                 @endif
             </div>
-              
+
             @include('website.partials.page_side')
         </div>
     </section>

@@ -20,7 +20,6 @@
           <h5>Времето за 16 октомври 2018</h5>
         </div>
         <div class="bc" style="margin-left:auto; margin-right:auto; width:300px;">
-
           <?php $__currentLoopData = $weather; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <?php $__currentLoopData = $val; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
               <?php $array[$value->cities->title][$key] = $value; ?>

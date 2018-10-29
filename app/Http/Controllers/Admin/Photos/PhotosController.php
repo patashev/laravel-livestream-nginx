@@ -14,6 +14,9 @@ use Illuminate\Http\UploadedFile;
 use Titan\Models\Traits\ImageThumb;
 use App\Http\Controllers\Admin\AdminController;
 
+use File;
+use Illuminate\Support\Facades\Storage;
+
 class PhotosController extends AdminController
 {
     /**
@@ -76,6 +79,54 @@ class PhotosController extends AdminController
         return $this->showPhotoable($article, $article->photos);
     }
 
+
+
+    public function uploadToCDN($uploadFile){
+      // $server = 'ftp.keycdn.com';
+      // $port = '22';
+      // $username = 'paveltashev';
+      // $passwd = 'Newsn3t#';
+      //     $connection = ssh2_connect($server, $port);
+      // if (ssh2_auth_password($connection, $username, $passwd)) {
+      //     $sftp = ssh2_sftp($connection);
+      //     echo "Connection status: OK. Uploading file!"."n";
+      //     $contents = file_get_contents($uploadFile);
+      //     file_put_contents("ssh2.sftp://{$sftp}/uploads/photos/{$uploadFile}", $contents);
+      // } else {
+      //   echo "Nope! Can not connect to server!"."n";
+      // }
+
+
+
+      // $server = 'ftp.keycdn.com';
+      // $port = '22';
+      // $username = 'paveltashev';
+      // $passwd = 'Newsn3t#';
+      //$conn_id = ftp_connect($server);
+      // login with username and password
+      //$login_result = ftp_login($conn_id, $username, $passwd);
+      // check connection
+      // if ((!$conn_id) || (!$login_result)) {
+      //     echo "FTP connection has failed!";
+      //     echo "Attempted to connect to $server for user $username";
+      //     exit;
+      // } else {
+      //     echo "Connected to $server, for user $username";
+      // }
+      // upload the file
+      //$upload = ftp_put($conn_id, "ftp://".$server."/uploads/photos/".$uploadFile, $localFile, FTP_ASCII);
+      $localFile = File::get("/home/adm1n/nginx/livestream/laravel-admin-live/public/uploads/photos/".$uploadFile);
+      $upload = Storage::disk('custom-ftp')->put('/uploads/photos/'.$uploadFile, $localFile);
+      // check upload status
+      if (!$upload) {
+          echo "FTP upload has failed!";
+      } else {
+          echo "Uploaded $uploadFile to $server as $destination_file";
+      }
+      // close the FTP stream
+      //ftp_close($conn_id);
+    }
+
     /**
      * Upload a new photo to the album
      * @return \Illuminate\Http\JsonResponse
@@ -84,7 +135,6 @@ class PhotosController extends AdminController
     {
         // upload the photo here
         $attributes = request()->validate(Photo::$rules);
-
         // get the photoable
         $photoable = input('photoable_type')::find(input('photoable_id'));
 
@@ -191,6 +241,9 @@ class PhotosController extends AdminController
 
         // save original
         $imageTmp->save($path . $name . Photo::$originalAppend . $extension);
+        $this->uploadToCDN($name . Photo::$originalAppend . $extension);
+
+
 
         /*// save large
         $imageTmp->fit($largeSize[0], $largeSize[1])->save($path . $filename);

@@ -5,7 +5,8 @@
                 <figure>
                     @if($item->cover_photo)
                         <a href="/gallery/{{ $item->slug }}" title="{{ $item->cover_photo->name }}">
-                            <img src="{{ $item->cover_photo->thumbUrl }}">
+
+                            <img src="{{ cdn('/uploads/photos/'.$item->cover_photo->filename) }}">
                         </a>
                     @endif
                 </figure>

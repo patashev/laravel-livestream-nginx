@@ -77,7 +77,9 @@ class WeatherController extends AdminController
      */
     public function edit($id)
     {
-        //
+        $cities = City::getAllLists();
+        $weather_type = WeatherTypes::find($id);
+        return $this->view('sidebars.create_edit_weather', compact('cities', 'weather_type'));
     }
 
     /**

@@ -37,8 +37,7 @@
 
 
           @case($val->sidebar_types_id == '5')
-
-            @include('website.partials.sidebar_moduls.side_weather')
+              @include('website.partials.sidebar_moduls.side_weather')
             @break
 
 
