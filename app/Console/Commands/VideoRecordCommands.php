@@ -52,7 +52,7 @@ class VideoRecordCommands extends Command
             $command = $_ENV['VIDEO_FFMPEG']." -i 'rtmp://".$_ENV['APP_HOSTNAME']."/live/${slug}' -c:v libx264 -profile:v baseline -b:v 512K -vf 'scale=1280:trunc(ow/a/2)*2' -f flv -c:a aac -ac 1 -strict -2 -b:a 128k ";
             $command = $command . "rtmp://".$_ENV['APP_HOSTNAME']."/show/${slug}_low -c:v libx264 -profile:v baseline -b:v 128K -vf 'scale=480:trunc(ow/a/2)*2' -f flv -c:a aac -ac 1 -strict -2 -b:a 32k ";
             $command = $command . "rtmp://".$_ENV['APP_HOSTNAME']."/show/${slug}_mid -c:v libx264 -profile:v baseline -b:v 256K -vf 'scale=720:trunc(ow/a/2)*2' -f flv -c:a aac -ac 1 -strict -2 -b:a 64k ";
-            $command = $command . "rtmp://".$_ENV['APP_HOSTNAME']."/show/${slug}_hi -c:v libx264 -profile:v baseline -b:v 512K -vf 'scale=1280:trunc(ow/a/2)*2' -f flv -c:a aac -ac 1 -strict -2 -b:a 128k ";
+            $command = $command . "rtmp://".$_ENV['APP_HOSTNAME']."/show/${slug}_high -c:v libx264 -profile:v baseline -b:v 512K -vf 'scale=1280:trunc(ow/a/2)*2' -f flv -c:a aac -ac 1 -strict -2 -b:a 128k ";
 
 
             $idd = fopen(storage_path('app/'.$slug.".handle"), 'r');

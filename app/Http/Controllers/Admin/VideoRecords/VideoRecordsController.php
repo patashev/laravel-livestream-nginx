@@ -67,19 +67,22 @@ class VideoRecordsController extends AdminController
                 $edit = '<div class="btn-toolbar">'
                 .action_row("videos/", $item->id, $item->name, ["edit", "delete"], true).
                 '</div>';
+                $checkbox_action = "<div class='btn-group'><input type='checkbox' class='checkbox_action_checkbox' name='checkbox_action_checkbox[]' value='".$item->id."'></div>";
             $endItem[] = array(
                   'id' => $item->id,
                   'title' => $item->title,
                   'Category' => $item->category->name,
                   'thumb' => $cover,
                   'created_at' =>  $item->created_at->toDateTimeString(),
-                  'action' => $edit
+                  'action' => $edit,
+                  'checkbox_action' => $checkbox_action
                 );
           }
         return DataTables::of(json_decode(json_encode($endItem)))
               // ->addColumn('action', function ($endItem) {
               //   return $edit;
               // })
+              ->rawColumns(['checkbox_action','action'])
               ->escapeColumns(['*'])
               ->make(true);
     }
@@ -214,9 +217,9 @@ class VideoRecordsController extends AdminController
     }
 
 
-    /**
-   * Show the Photoable's photos
-   * Create / Edit / Delete the photos
+  /**
+   * Show the Videoable's videos
+   * Create / Edit / Delete the videos
    * @return mixed
    */
    private function showPhotoable($video)
@@ -227,4 +230,16 @@ class VideoRecordsController extends AdminController
           ->with('photoable', $photoable)
           ->with('photos', $photos);
     }
+
+
+    function massDelete(Request $request){
+       $videoArray = $request->input('id');
+       $videos = VideoRecords::whereIn('id', $videoArray)->get();
+       foreach ($videos as $video) {
+         $video->delete();
+       }
+       // if($video->delete()){
+       //   echo "data Deleted";
+       // }
+     }
 }

@@ -12,7 +12,6 @@
                 </div>
 
                 <div class="box-body">
-
                     @include('admin.partials.info')
 
                     @include('admin.partials.toolbar')
@@ -26,6 +25,11 @@
                             <th>Cover Photo</th>
                             <th>Created</th>
                             <th>Action</th>
+                            <th>
+                              <button type="button" name="bulk_delete" id="bulk_delete" class="btn btn-danger btn-xs">
+                                <i class="glyphicon glyphicon-remove"></i>
+                              </button>
+                            </th>
                         </tr>
                         </thead>
                     </table>
@@ -75,11 +79,38 @@
                   'searchable': false
                 },
                 {data: 'created_at', name: 'created_at'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+                {data: 'checkbox_action', name: 'checkbox_action', orderable: false, searchable: false}
             ]
         });
         initActionDeleteClickDatatable();
         table.$('[data-toggle="tooltip"]').tooltip();
+
+
+
+        $(document).on('click','#bulk_delete', function(){
+        	var id = [];
+        	if(confirm("Are you sure you want to delete this Data?"))
+        	{
+        		$('.checkbox_action_checkbox:checked').each(function(){
+        			id.push($(this).val());
+        		});
+        		if(id.length > 0){
+              $.ajax({
+                url:"{{ route('datatable.massDelete')}}",
+                method:"get",
+                data:{id:id},
+                success:function(data){
+                  $('.datatable').DataTable().ajax.reload();
+                }
+              })
+
+        		}
+        		else{
+              alert("select atleast one");
+        		}
+        	}
+        });
     });
 
 

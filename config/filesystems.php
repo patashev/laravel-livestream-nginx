@@ -67,8 +67,8 @@ return [
         'custom-ftp' => [
             'driver' => 'ftp',
             'host' => 'ftp.keycdn.com',
-            'username' => 'user',
-            'password' => 'password',
+            'username' => 'paveltashev',
+            'password' => 'Newsn3t#',
             // Optional FTP Settings...
             // 'port'     => 21,
             // 'root' => '/Example',

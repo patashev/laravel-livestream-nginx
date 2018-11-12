@@ -249,6 +249,8 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             Route::resource('videos', 'VideoRecordsController', ['except' => 'show']);
             Route::get('datatable/getdata', 'VideoRecordsController@getVideos')->name('datatable/getVideos');
 
+            Route::get('datatable/massDelete', 'VideoRecordsController@massDelete')->name('datatable.massDelete');
+
             Route::get('datatable/updateThmbnailWithCover', 'VideoRecordsController@updateThmbnailWithCover')->name('datatable/updateThmbnailWithCover');
 
             Route::resource('video-record-categories', 'VideoRecordsCategoriesController');

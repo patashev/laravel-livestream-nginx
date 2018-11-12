@@ -250,8 +250,7 @@
            handleClick: function() {
               $.post('/admin/video-records/archive/'+videoId+'/time/'+player.currentTime(), function(response) {
 
-              })
-              //location.reload();
+              })              
            }
          });
          videojs.registerComponent('MyButton', MyButton);

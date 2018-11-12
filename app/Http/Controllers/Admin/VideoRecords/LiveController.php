@@ -118,61 +118,32 @@ class LiveController extends AdminController
 
     public function saveAsTxt($id, $slug, $key)
     {
-      $embed_string = "<style>
-      .info { background-color: #eee; border: thin solid #333; border-radius: 3px; padding: 0 5px; margin: 20px 0; }
-      video { width: 100%; height: auto;}
-    </style>
-    <link href='https://".$_SERVER['SERVER_NAME']."/css/video-js.css' rel='stylesheet'>
-    <script src='https://".$_SERVER['SERVER_NAME']."/js/video.js'></script>
-      <script src='https://".$_SERVER['SERVER_NAME']."/js/videojs-contrib-hls.min.js'></script>
+      $embed_string = "<link href='https://".$_SERVER['SERVER_NAME']."/css/video-js.css' rel='stylesheet'>
+      <link href='https://".$_SERVER['SERVER_NAME']."/css/vjs-custom-skin.css' rel='stylesheet'>
+      <script type='text/javascript' src='https://".$_SERVER['SERVER_NAME']."/js/video.js'></script>
+      <script type='text/javascript'  src='https://".$_SERVER['SERVER_NAME']."/js/videojs-contrib-hls.min.js'></script>
+      <script type='text/javascript'  src='https://".$_SERVER['SERVER_NAME']."/js/videojs.watermark.js'></script>
       <script src='https://".$_SERVER['SERVER_NAME']."/js/videojs.ga.min.js'></script>
-      </head>
-      <body>
-      <video id='video-".$slug.$key."'
-                      width='730'
-                      height='430'
-                      class='video-js vjs-default-skin'
-                      controls
-                      data-setup='{\"fluid\": true, \"ga\": {\"eventsToTrack\": [\"error\"]}}'
-                      poster='https://".$_SERVER['SERVER_NAME']."/img/thumbs/thumb_".$slug.".png'
-                      >
-        <source src='https://".$_SERVER['SERVER_NAME']."/hls/".$slug.".m3u8' type='application/x-mpegURL'>
+
+      <video id='videojs-contrib-hls-player' class='video-js vjs-default-skin' width='720' controls>
+        <source src='https://".$_SERVER['SERVER_NAME']."/live/".$slug.".m3u8' type='application/x-mpegURL'>
+        <input id='videoSource' type='hidden' value='https://".$_SERVER['SERVER_NAME']."/live/".$slug.".m3u8'>
+        <input id='videoPoster' type='hidden' value='https://".$_SERVER['SERVER_NAME']."/img/thumbs/thumb_".$slug.".png'>
       </video>
       <script>
-      $.getJSON('https://".$_SERVER['SERVER_NAME']."/admin/video-records/live-stream/getipstats', function(location, textStatus, jqXHR) {
-        localStorage['ip'] =  location.ip;
-        localStorage['el'] = $('.page-title h1').text();
-        return String(localStorage.url);
-      });
-      ff = localStorage.url;
-      function loadDoc() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          console.log();
-        }
-      };
-        xhttp.open('GET', ff, true);
-        xhttp.send();
-      }
 
-      var videoId = document.getElementById('video-".$slug."');
-      var player = videojs( videoId, {}, function() {
-        this.ga();
+      $(function() {
+          var videoPoster = $('#videoPoster').val();
+          var videoSource = $('#videoSource').val();
+          var player = videojs('videojs-contrib-hls-player');
+          player.src({
+              src: videoSource,
+              type: 'application/x-mpegURL',
+              aspectRatio:'720:400',
+              fluid: true
+          });
+          player.play();
       });
-      player.play( loadDoc() );
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-        ga('create', 'UA-19978293-1', 'auto');
-        ga('send', {
-          hitType: 'event',
-          eventCategory: 'Videos',
-          eventAction: 'play',
-          eventLabel: 'BTA - ".$slug."'
-        });
       </script>";
       return $embed_string;
 

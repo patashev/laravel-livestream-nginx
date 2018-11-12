@@ -10,7 +10,6 @@
                 </div>
 
                 <div class="box-body">
-
                     <?php echo $__env->make('admin.partials.info', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
                     <?php echo $__env->make('admin.partials.toolbar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
@@ -24,6 +23,11 @@
                             <th>Cover Photo</th>
                             <th>Created</th>
                             <th>Action</th>
+                            <th>
+                              <button type="button" name="bulk_delete" id="bulk_delete" class="btn btn-danger btn-xs">
+                                <i class="glyphicon glyphicon-remove"></i>
+                              </button>
+                            </th>
                         </tr>
                         </thead>
                     </table>
@@ -73,11 +77,38 @@
                   'searchable': false
                 },
                 {data: 'created_at', name: 'created_at'},
-                {data: 'action', name: 'action', orderable: false, searchable: false}
+                {data: 'action', name: 'action', orderable: false, searchable: false},
+                {data: 'checkbox_action', name: 'checkbox_action', orderable: false, searchable: false}
             ]
         });
         initActionDeleteClickDatatable();
         table.$('[data-toggle="tooltip"]').tooltip();
+
+
+
+        $(document).on('click','#bulk_delete', function(){
+        	var id = [];
+        	if(confirm("Are you sure you want to delete this Data?"))
+        	{
+        		$('.checkbox_action_checkbox:checked').each(function(){
+        			id.push($(this).val());
+        		});
+        		if(id.length > 0){
+              $.ajax({
+                url:"<?php echo e(route('datatable.massDelete')); ?>",
+                method:"get",
+                data:{id:id},
+                success:function(data){
+                  $('.datatable').DataTable().ajax.reload();
+                }
+              })
+
+        		}
+        		else{
+              alert("select atleast one");
+        		}
+        	}
+        });
     });
 
 
