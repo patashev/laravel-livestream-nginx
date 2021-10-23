@@ -1,0 +1,144 @@
+<style>
+  #chart-page-views {
+    width:100% !important;
+    max-height:300px;
+  }
+
+  .chart-container {
+    position: relative;
+    margin: auto;
+
+  }
+  
+</style>
+<div class="box box-primary" id="box-total-views">
+  <div class="box-header with-border">
+    <h3 class="box-title">
+      <span><i class="fa fa-users"></i></span>
+      <span>Видеа гледаемост - Колони</span>
+    </h3>
+
+    @include('admin.partials.boxes.toolbar')
+  </div>
+
+  <div class="box-body">
+    <div class="col-md-12">
+      <div class="loading-widget text-primary">
+        <i class="fa fa-fw fa-spinner fa-spin"></i>
+      </div>
+
+      <div class="chart-container">
+        <div id="chart-page-views-legend" class="chart-legend"></div>
+        <canvas id="chart-page-views"></canvas>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <table id="tbl-list-video" class="table table-striped table-hover table-bordered hover" data-server="true">
+        <thead>
+        <tr>
+          <th>Дата</th>
+          <th>Заглавие на пресконференцията</th>
+          <th>Общо гледания на живо</th>
+          <th>Администратор на стриима</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+        <tfoot>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+@section('scripts')
+    @parent
+    <script type="text/javascript" charset="utf-8">
+      $(function ()
+      {
+        var chart;
+        initToolbarDateRange('#box-total-views .daterange', updateChart);
+
+        {{--initToolbarDateRange('#box-total-views .daterange', initDataTablesNew("{{route('stats_datatable')}}/?start=2021-02-28&end=2021-01-30"));--}}
+        /**
+         * Get the chart's data
+         * @param view
+         */
+        function updateChart(start, end)
+        {
+          if (chart) {
+            chart.destroy();
+          }
+
+          if (!start) {
+            start = moment().subtract(29, 'days').format('YYYY-MM-DD');
+            end = moment().format('YYYY-MM-DD');
+          }
+
+          $('#box-total-views .loading-widget').show();
+          doAjax('/api/stats/get_stats_bars', {
+            'start': start, 'end': end,
+          }, createLineChart);
+          $('#tbl-list-video').DataTable().destroy();
+          initDataTablesNew("{{route('stats_datatable')}}/?start="+start+"&end="+end);
+        }
+
+        function beforePrintHandler () {
+          for (var id in Chart.instances) {
+            Chart.instances[id].resize()
+          }
+        }
+
+        function createLineChart(data)
+        {
+          beforePrintHandler();
+          // total page views and visitors line chart
+          var ctx = document.getElementById("chart-page-views").getContext("2d");
+          chart = new Chart(ctx).Line(data, {
+            maintainAspectRatio: false,
+            backgroundColor: 'transparent',
+            multiTooltipTemplate: "<%= value %> - <%= datasetLabel %>"
+          });
+          $('#box-total-views .loading-widget').slideUp();
+          $('#chart-page-views-legend').html(chart.generateLegend());
+        }
+
+
+
+
+        function initDataTablesNew(url)
+        {
+          var table = $('#tbl-list-video').DataTable({
+            "ajax": url,
+            "paging": false,
+            "searching": false,
+            "columns": [
+              { "data": "date_action" },
+              { "data": "title" },
+              { "data": "count" },
+              { "data": "stream_name" },
+            ]
+          });
+          return table;
+        }
+
+
+
+
+        setTimeout(function ()
+        {
+          updateChart();
+        }, 300);
+      })
+    </script>
+@endsection

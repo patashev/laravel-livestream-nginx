@@ -7,12 +7,12 @@
                 </a>
                 <hr>
                 <small>
-                    Website by <a href="https://github.com/bpocallaghan" target="_blank">{!! env('APP_AUTHOR') !!}</a>
+                    Стрииминг платформа от <a href="{!! env('APP_AUTHOR_GIT_REPO') !!}" target="_blank">{!! env('APP_AUTHOR') !!}</a>
                 </small>
             </div>
             <div class="col-sm-8 text-center">
                 <div class="row text-left">
-                    <ul class="col-sm-4">
+                    <!-- <ul class="col-sm-4">
                         @foreach($footerNavigation['About'] as $item)
                             <li><a class="{{ $loop->first ? 'text-white':'text-grey' }}" href="{{ $item->url }}">{!! $item->name !!}</a></li>
                         @endforeach
@@ -29,7 +29,7 @@
                         @foreach($footerNavigation['Corporate'] as $item)
                             <li><a class="text-grey" href="{{ $item->url }}">{!! $item->name !!}</a></li>
                         @endforeach
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </div>
@@ -38,10 +38,10 @@
         {{--<p class="text-right float-right text-muted small">
             Copyright &copy; {{config('app.name') . ' ' . date('Y')}}
         </p>--}}
-        <div class="text-center">
+        {{-- <div class="text-center">
             <a class="text-muted small" href="/privacy-policy">Privacy Policy</a> |
             <a class="text-muted small" href="/terms-and-conditions">Terms and Conditions </a> |
             <a class="text-muted small" href="/faq">FAQs</a>
-        </div>
+        </div> --}}
     </div>
 </footer>

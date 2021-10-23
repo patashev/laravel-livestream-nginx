@@ -5,7 +5,7 @@
 
     <div class="row">
         <div class="col-xs-12">
-          
+
         	@if (count($errors) > 0)
 				<div class="alert alert-danger">
 					<ul>
@@ -31,7 +31,6 @@
                         </a>
                     </div>
                      <table id="tbl-list" data-server="false" class="dt-table table table-striped table-bordered" cellspacing="0" width="100%">
-                    <!-- <table id="tbl-list" data-server="false" class="dt-table table table-striped table-bordered" cellspacing="0" width="100%"> -->
                         <thead>
                             <tr>
                             <th>Name</th>
@@ -53,7 +52,7 @@
                                 <td>
                                     <div class="btn-toolbar">
                                         <div class="btn-group">
-                                           
+
                                         </div>
                                         {!! action_row($selectedNavigation->url, $item->id, $item->name, ['edit', 'delete'], false) !!}
                                     </div>
@@ -64,7 +63,7 @@
                     </table>
                 </div>
               </div>
-            
+
         </div>
     </div>
 @endsection

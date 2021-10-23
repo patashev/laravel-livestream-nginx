@@ -32,7 +32,6 @@ class NewsController extends AdminController
     public function create()
     {
         $categories = NewsCategory::getAllList();
-
         return $this->view('news_events.create_edit', compact('categories'));
     }
 

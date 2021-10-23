@@ -7,6 +7,7 @@ use Redirect;
 use App\Http\Requests;
 use App\Models\Banner;
 use Illuminate\Http\Request;
+use App\Models\VideoRecordsCategory;
 
 class BannersController extends AdminController
 {
@@ -25,11 +26,15 @@ class BannersController extends AdminController
     /**
      * Show the form for creating a new banner.
      *
+     * @param VideoRecordsCategory $videorecords_category
+     * @param Banner $banner
      * @return Response
      */
-    public function create()
+    public function create(VideoRecordsCategory $videorecords_category)
     {
-        return $this->view('banners.create_edit');
+      $categories = VideoRecordsCategory::getAllLists();
+        return $this->view('banners.create_edit')
+          ->with('categories', $categories);
     }
 
     /**
@@ -68,12 +73,16 @@ class BannersController extends AdminController
     /**
      * Show the form for editing the specified banner.
      *
+     * @param VideoRecordsCategory $videorecords_category
      * @param Banner $banner
      * @return Response
      */
-    public function edit(Banner $banner)
+    public function edit(Banner $banner, VideoRecordsCategory $videorecords_category)
     {
-        return $this->view('banners.create_edit')->with('item', $banner);
+      $categories = VideoRecordsCategory::getAllLists();
+        return $this->view('banners.create_edit')
+          ->with('item', $banner)
+          ->with('categories', $categories);
     }
 
     /**
@@ -101,6 +110,10 @@ class BannersController extends AdminController
         unset($attributes['photo']);
         $attributes['hide_name'] = boolval(input('hide_name'));
         $attributes['is_website'] = boolval(input('is_website'));
+
+        
+
+        $attributes['video_category_id'] = $request['categories'][0];
 
         $this->updateEntry($banner, $attributes);
 

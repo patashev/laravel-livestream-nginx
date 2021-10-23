@@ -24,8 +24,6 @@
                             <div class="row">
 
 
-
-
                               <div class="col col-md-12">
                                 <div class="form-group {{ form_error_class('sidebars_id', $errors) }}">
                                     <label for="sidebars_id">Choose sidebar</label>

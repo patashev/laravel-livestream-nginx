@@ -11,7 +11,7 @@
 
     <div class="row mt-2 mb-5">
         <div class="col-sm-3">
-            <div class="card h-100">
+            <!-- <div class="card h-100">
                 <div class="card-header">
                     <h4 class="card-title"><i class="fa fa-fw fa-check"></i> Laravel v5.6.7</h4>
                 </div>
@@ -23,11 +23,11 @@
                         <li><strong>jQuery v3.2.1</strong></li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="col-sm-6">
-            <div class="card h-100">
+            <!-- <div class="card h-100">
                 <div class="card-header">
                     <h4 class="card-title"><i class="fa fa-fw fa-gift"></i> Free &amp; Open Source & Many Features</h4>
                 </div>
@@ -57,10 +57,10 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="col-sm-3">
-            <div class="card h-100">
+            <!-- <div class="card h-100">
                 <div class="card-header">
                     <h4 class="card-title"><i class="fa fa-fw fa-cubes"></i> Add On Packages</h4>
                 </div>
@@ -86,7 +86,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -97,7 +97,7 @@
     </div>
     <div class="row card-columns mt-2 packages">
         <div class="col-md-4 col-sm-6">
-            <a target="_blank" href="https://github.com/bpocallaghan/generators">
+            <!-- <a target="_blank" href="https://github.com/bpocallaghan/generators">
                 <div class="card text-center">
                     <div class="card-body">
                         <h3 class="card-title text-primary">File Generators</h3>
@@ -106,10 +106,10 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            </a> -->
         </div>
         <div class="col-md-4 col-sm-6">
-            <a target="_blank" href="https://github.com/bpocallaghan/impersonate">
+            <!-- <a target="_blank" href="https://github.com/bpocallaghan/impersonate">
                 <div class="card text-center">
                     <div class="card-body">
                         <h3 class="card-title text-primary">Impersonate User</h3>
@@ -118,10 +118,10 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            </a> -->
         </div>
         <div class="col-md-4 col-sm-6">
-            <a target="_blank" href="https://github.com/bpocallaghan/sluggable">
+            <!-- <a target="_blank" href="https://github.com/bpocallaghan/sluggable">
                 <div class="card text-center">
                     <div class="card-body">
                         <h3 class="card-title text-primary">Sluggable</h3>
@@ -131,10 +131,10 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            </a> -->
         </div>
         <div class="col-md-4 col-sm-6">
-            <a target="_blank" href="https://github.com/bpocallaghan/notify">
+            <!-- <a target="_blank" href="https://github.com/bpocallaghan/notify">
                 <div class="card text-center">
                     <div class="card-body">
                         <h3 class="card-title text-primary">Notification</h3>
@@ -144,10 +144,10 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            </a> -->
         </div>
         <div class="col-md-4 col-sm-6">
-            <a target="_blank" href="https://github.com/bpocallaghan/alert">
+            <!-- <a target="_blank" href="https://github.com/bpocallaghan/alert">
                 <div class="card text-center">
                     <div class="card-body">
                         <h3 class="card-title text-primary">Alert</h3>
@@ -157,10 +157,10 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            </a> -->
         </div>
         <div class="col-md-4 col-sm-6">
-            <a target="_blank" href="https://github.com/bpocallaghan/titan">
+            <!-- <a target="_blank" href="https://github.com/bpocallaghan/titan">
                 <div class="card text-center">
                     <div class="card-body">
                         <h3 class="card-title text-primary">Titan</h3>
@@ -169,15 +169,15 @@
                         </div>
                     </div>
                 </div>
-            </a>
+            </a> -->
         </div>
     </div>
 
-    @include('website.partials.footer_newsletter')
+    <!-- @include('website.partials.footer_newsletter') -->
 
     <!-- Call to Action Section -->
     <div class="card bg-light mt-3">
-        <div class="card-body">
+        <!-- <div class="card-body">
             <div class="row">
                 <div class="col-md-8">
                     <p>A Laravel CMS Starter project with AdminLTE, Roles, Impersonations, Analytics,
@@ -190,6 +190,6 @@
                     </a>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 @endsection

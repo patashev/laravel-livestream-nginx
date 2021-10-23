@@ -15,23 +15,19 @@
                 </div>
                 <div class="gallery">
                     <div class="row-fluid no-gutters">
-                        @foreach($album->videos as $item)
-                          @if($item->is_cover)
                             <div class="col-lg-12">
-                              <figure>
-                                  <div class="wrapper">
-
-                                      <div class="video-holder">
+                              <div class="box box-primary box-solid well well-sm bg-gray-light">
+                                <div class="media-wrapper">
                                         <video id="video-js" class="video-js vjs-default-skin vjs-big-play-centered"
-                                              poster='{{ $item->thumbUrl }}'
+                                              poster='/uploads/videos/{{ $album->cover->filename }}'
                                               controls preload="auto">
-                                              <source src="https://newlive.bta.bg/hls/{{$album->file_name}}/index.m3u8" type="application/x-mpegURL">
+                                              <source src="/hls/{{$album->apy_key}}/{{$album->file_name}}/index.m3u8" type="application/x-mpegURL">
                                               <input id="videoId" type="hidden" value="{{$album->id}}">
-                                              <input id="videoSource" type="hidden" value='<?php echo "https://newlive.bta.bg/hls/".$album->file_name."/index.m3u8" ;?>'>
-                                              <input id="videoPoster" type="hidden" value='<?php echo $item->thumbUrl ;?>'>
-                                              <input id="videoTitle" type="hidden" value='<?php echo $album->title ;?>'>
+                                              <input id="videoSource" type="hidden" value='/hls/{{$album->apy_key}}/{{$album->file_name}}/index.m3u8'>
+                                              <input id="videoPoster" type="hidden" value='{{$album->cover->filename}}'>
+                                              <input id="videoTitle" type="hidden" value='{{$album->title}}'>
                                         </video>
-                                        @if (!empty($related))
+                                        @if (!empty($playlist->videos))
                                         <div class="playlist-components">
                                           <div class="panel-group">
                                             <div class="panel panel-default">
@@ -59,15 +55,13 @@
                                       </div>
 
                                   </div>
-
-                                  <figcaption>{!! $item->title !!}</figcaption>
+                                  <figure>
+                                  <figcaption>{!! $album->title !!}</figcaption>
                                   <div class="mt-3">
-                                      <p>{!! $item->description !!}</p>
+                                      <p>{!! $album->description !!}</p>
                                   </div>
                               </figure>
                             </div>
-                          @endif
-                        @endforeach
                     </div>
                 </div>
             </div>
@@ -80,6 +74,11 @@
     @parent
     <style>
     /* Show the controls (hidden at the start by default) */
+.vjs-social-share {
+    top: 5px !important;
+    position: absolute;
+    right: 5px !important;
+  }
 
 .vjs-watermark {
     position: absolute;
@@ -171,6 +170,15 @@
     border-color: #353535;
     background: #353535;
 }
+
+.playlist .poster .img{
+  max-width: 150px !important;
+  padding-bottom: 8px !important;
+}
+
+.playlist .title{
+  float: right !important;
+}
 .playlist .poster, .playlist .title  {
     display: inline-block;
     vertical-align: top
@@ -189,6 +197,8 @@
     </style>
 
     <script type="text/javascript" charset="utf-8">
+
+
 
 function playList(options,arg){
 var player = this;
@@ -323,23 +333,30 @@ return player;
       src : [
           firstVideo
         ],
-        poster : videoPoster,
-        title : videoTitle,
-        thumbnail : videoPoster
+        poster : '/uploads/videos/{{ $album->cover->filename }}',
+        title : '{!!preg_replace( "/\r|\n/", "", $album->title )!!}',
+        thumbnail : '/uploads/videos/{{ $album->cover->filename }}'
   },
-  @if (!empty($related))
-    @foreach($related as $all)
-    @foreach($all->videos as $img)
-      {
-        src : [
-          'https://newlive.bta.bg/hls/{{$all->file_name}}/index.m3u8'
-        ],
-        poster : '{{ $img->thumbUrl }}',
-        title : '{{ $all->title }}',
-        thumbnail : '{{ $img->thumbUrl }}'
+
+
+
+  @if ($album->related)
+  {{dd($playlist->videos)}}
+  @endif
+
+  @if ($album->related)
+    @foreach($album->related as $key => $all)
+      @foreach($all->videos as $video)
+        {
+          src : [
+            'https://newlive.bta.bg/hls/{{$all->apy_key}}/{{$all->file_name}}/index.m3u8'
+          ],
+          poster : '{!!"/uploads/videos/".$video->filename!!}',
+          title : '{!!preg_replace( "/\r|\n/", "", $all['title'] )!!}',
+          thumbnail : '{!!"/uploads/videos/".$video->filename!!}'
       },
+      @endforeach
     @endforeach
-   @endforeach
   @endif
 ];
 
@@ -348,7 +365,7 @@ init : function(){
   this.els = {};
   this.cacheElements();
   this.initVideo();
-  @if (!empty($related))
+  @if (!empty($album->related))
     this.createListOfVideos();
   @endif
   this.bindEvents();
@@ -372,37 +389,69 @@ initVideo : function(){
   var videoId = $('#videoId').val();
   this.player = videojs('video-js',{
       type: 'application/x-mpegURL',
-      aspectRatio:"720:400",
       fluid: true
      });
+
+@if($album->player_settings)
+  @if($album->player_settings->with_logo == true)
   this.player.watermark({
-           file: '/images/logo-mini.png',
-           xpos: 0,
-           ypos: 0,
+           file: '/{{$album->player_settings->logo_file_name}}',
+           xpos: 80,
+           ypos: 80,
+           width: 160,
+           clickable: true,
+           url: '{{$album->player_settings->logo_href}}',
            xrepeat: 0,
-           opacity: 1,
+           opacity: ('{{$album->player_settings->logo_opacity}}'/10),
+           debug: false
        });
+  @endif
+@endif
+
+@if($album->player_settings)
+  @if($album->player_settings->sharing == true)
+   this.player.socialShare({
+           facebook: { // optional, includes a Facebook share button (See the [Facebook documentation](https://developers.facebook.com/docs/sharing/reference/share-dialog) for more information)
+             shareUrl: 'https://newlive.bta.bg/videos/{{$album->id}}', // optional, defaults to window.location.href
+             shareImage: 'https://newlive.bta.bg/uploads/videos/{{ $album->cover->filename }}', // optional, defaults to the Facebook-scraped image
+             shareText: '{!! $album->title !!}',  // optional
+             app_id: '2603994039643326', // optional, facebook app_id to use (if not specified, the plugin will try to
+                         // use an existing FB Javascript object, or it will try to scrape the app_id from the
+                         // <meta property="fb:app_id"> element in the document
+           },
+           twitter: { // optional, includes a Twitter share button (See the [Twitter documentation](https://dev.twitter.com/web/tweet-button/web-intent) for more information)
+             handle: '', // optional, appends `via @handle` to the end of the tweet
+             shareUrl: 'https://newlive.bta.bg/videos/{{$album->id}}', // optional, defaults to window.location.href
+             shareText: '{!! $album->title !!}'
+           },
+           embed: { // optional, includes an embed code button
+             embedMarkup: this.player.currentTime() // required
+           }
+         });
+    @endif
+  @endif
 
   videojs.registerPlugin('playList', playList);
 
 
-  @if (!empty($related))
+  @if (!empty($album->related))
+
   this.player.playList(videos);
 
   this.player.related({
             title: 'Related',
             target: 'self',
             list: [
-            @foreach($related as $all)
-              @foreach($all->videos as $img)
+                @foreach($album->related as $key => $all)
+                  @foreach($all->videos as $video)
                 {
-                  title : '{{ $all->title }}',
-                  url : ['https://newlive.bta.bg/videos/{{$all->id}}'],
-                  image : '{{ $img->thumbUrl }}',
+                  title : '{!!preg_replace( "/\r|\n/", "", $all['title'] )!!}',
+                  url : ['/videos/video_entry/{{$all->id}}'],
+                  image : '{!!"/uploads/videos/".$video->filename!!}',
                   target: 'self'
                 },
-              @endforeach
-            @endforeach
+                  @endforeach
+                @endforeach
            ]
         });
     @endif

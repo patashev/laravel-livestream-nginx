@@ -1442,17 +1442,17 @@ a:focus {
 .table tr > td .progress {
   margin: 0;
 }
-.progress-bar-light-green,
+.progress-bar-light-blue,
 .progress-bar-primary {
   background-color: #3c8dbc;
 }
-.progress-striped .progress-bar-light-green,
+.progress-striped .progress-bar-light-blue,
 .progress-striped .progress-bar-primary {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
 }
-.progress-striped .progress-bar-light-green,
+.progress-striped .progress-bar-light-blue,
 .progress-striped .progress-bar-primary {
   background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-image: -o-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
@@ -5069,8 +5069,8 @@ table.text-center th {
 .bg-red,
 .bg-yellow,
 .bg-aqua,
-.bg-green,
-.bg-light-green,
+.bg-blue,
+.bg-light-blue,
 .bg-green,
 .bg-navy,
 .bg-teal,
@@ -5084,8 +5084,8 @@ table.text-center th {
 .bg-red-active,
 .bg-yellow-active,
 .bg-aqua-active,
-.bg-green-active,
-.bg-light-green-active,
+.bg-blue-active,
+.bg-light-blue-active,
 .bg-green-active,
 .bg-navy-active,
 .bg-teal-active,
@@ -5159,10 +5159,10 @@ table.text-center th {
 .modal-info .modal-body {
   background-color: #00c0ef !important;
 }
-.bg-green {
+.bg-blue {
   background-color: #0073b7 !important;
 }
-.bg-light-green,
+.bg-light-blue,
 .label-primary,
 .modal-primary .modal-body {
   background-color: #3c8dbc !important;
@@ -5220,10 +5220,10 @@ table.text-center th {
 .modal-info .modal-footer {
   background-color: #00a7d0 !important;
 }
-.bg-green-active {
+.bg-blue-active {
   background-color: #005384 !important;
 }
-.bg-light-green-active,
+.bg-light-blue-active,
 .modal-primary .modal-header,
 .modal-primary .modal-footer {
   background-color: #357ca5 !important;
@@ -5270,13 +5270,13 @@ table.text-center th {
 .text-aqua {
   color: #00c0ef !important;
 }
-.text-green {
+.text-blue {
   color: #0073b7 !important;
 }
 .text-black {
   color: #111111 !important;
 }
-.text-light-green {
+.text-light-blue {
   color: #3c8dbc !important;
 }
 .text-green {
@@ -5379,7 +5379,7 @@ table.text-center th {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#7adddd', endColorstr='#39cccc', GradientType=0) !important;
   color: #fff;
 }
-.bg-light-green-gradient {
+.bg-light-blue-gradient {
   background: #3c8dbc !important;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #3c8dbc), color-stop(1, #67a8ce)) !important;
   background: -ms-linear-gradient(bottom, #3c8dbc, #67a8ce) !important;
@@ -5388,7 +5388,7 @@ table.text-center th {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#67a8ce', endColorstr='#3c8dbc', GradientType=0) !important;
   color: #fff;
 }
-.bg-green-gradient {
+.bg-blue-gradient {
   background: #0073b7 !important;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #0073b7), color-stop(1, #0089db)) !important;
   background: -ms-linear-gradient(bottom, #0073b7, #0089db) !important;

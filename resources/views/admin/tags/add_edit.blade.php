@@ -11,7 +11,7 @@
                     </h3>
                 </div>
 
-                <div class="box-body no-padding">
+                <div class="box-body">
 
                     @include('admin.partials.info')
 
@@ -20,7 +20,7 @@
                         <input name="_method" type="hidden" value="{{isset($item)? 'PUT':'POST'}}">
 
 						<fieldset>
-                            <div class="row">
+
                                 <div class="col-md-12">
                                     <div class="form-group {{ form_error_class('name', $errors) }}">
                                         <label for="name">Tag</label>
@@ -28,7 +28,6 @@
                                         {!! form_error_message('name', $errors) !!}
                                     </div>
                                 </div>
-                            </div>
 						</fieldset>
 
 						@include('admin.partials.form_footer')

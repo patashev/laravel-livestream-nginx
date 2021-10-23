@@ -5,10 +5,10 @@ namespace App\Models;
 use App\User;
 use App\Models\Traits\Photoable;
 use Bpocallaghan\Sluggable\SlugOptions;
-use Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Models\TitanCMSModel;
 use Bpocallaghan\Sluggable\HasSlug;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Titan\Models\Traits\ActiveTrait;
+use Bpocallaghan\Titan\Models\Traits\ActiveTrait;
 
 class Article extends TitanCMSModel
 {

@@ -39,6 +39,10 @@ Route::group(['namespace' => 'Api'], function () { // 'middleware' => ['auth:api
         Route::post('/actions/latest', 'NotificationsController@getLatestActions');
     });
 
+    Route::group(['prefix' => 'stats'], function () {
+      Route::post('/get_stats_bars', 'Ip2locationController@returnedRowedIpToLocations');
+    });
+
     // analytics
     Route::group(['prefix' => 'analytics'], function () {
         Route::post('/keywords', 'AnalyticsController@getKeywords');
@@ -64,15 +68,18 @@ Route::group(['namespace' => 'Api'], function () { // 'middleware' => ['auth:api
     });
 
     Route::post('/newsletter/subscribe', 'NewsletterController@subscribe');
-
-
-    //
-    // Route::resources([
-    //     'videos' => 'VideoRecordsController'
-    // ]);
-
     Route::group(['prefix' => 'videos'], function(){
       Route::post('/action', 'VideoRecordsController@index')->middleware('apiKey');
       Route::get('/action/{page}/{limit}/{category}', 'VideoRecordsController@listing');
     });
+
+    // stats
+    Route::group(['prefix' => 'stats'], function () {
+        Route::get('/', 'Ip2locationController@index');
+        Route::post('/insert', 'Ip2locationController@insertEntry');
+    });
+});
+
+Route::group(['prefix'=>'v1','middleware' => 'auth:api'], function() {
+	Route::put('/user', 'LoggedUserController@update');
 });

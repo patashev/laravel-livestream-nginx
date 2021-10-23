@@ -1,6 +1,12 @@
 @extends('layouts.admin')
 
 @section('content')
+
+<div class="col-md-12">
+    @include('admin.analytics.partials.visitors_this_month')
+</div>
+
+
     @include('admin.analytics.partials.analytics_header', ['activeUsers' => true])
 
     <div class="row">

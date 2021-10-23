@@ -1,18 +1,14 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
 use App\Http\Requests;
 use App\Models\LogLogin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Website\WebsiteController;
 use App\Http\Controllers\Website\BaseWebsiteController;
-
 class AuthController extends WebsiteController
 {
     protected $baseViewPath = 'auth.';
-
     /**
      * @param \Illuminate\Http\Request $request
      * @param string                   $status

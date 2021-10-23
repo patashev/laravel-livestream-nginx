@@ -28,8 +28,12 @@
 
         <link rel="stylesheet" href="/css/website.css?v=2">
 
+        <script>
+          window.HELP_IMPROVE_VIDEOJS = false
+          //window.VIDEOJS_NO_DYNAMIC_STYLE = true
+        </script>
+
         @yield('styles')
-        
     </head>
 
     <body id="top" class="d-flex flex-column align-items-end">
@@ -62,7 +66,7 @@
             <i class="fa fa-angle-up"></i>
         </a>
 
-        <script type="text/javascript" charset="utf-8" src="/js/website.js?v=2"></script>
+        <script charset="utf-8" src="/js/website.js?v=2"></script>
 
         @yield('scripts')
 

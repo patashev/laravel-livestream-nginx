@@ -6,12 +6,12 @@
             <div class="box box-primary box-solid">
                 <div class="box-header with-border">
                     <h3 class="box-title">
-                        <img src="{{ profile_image() }}" class="img-circle" alt="User Image" style="width: 25px;">
+                        <img src="{{ profile_image() }}" class="img-circle" alt="User Image" style="width: 40px;">
                         <span>Update Profile</span>
                     </h3>
                 </div>
 
-                <div class="box-body no-padding">
+                <div class="box-body">
 
                     @include('admin.partials.info')
 
@@ -20,8 +20,8 @@
                         <input name="_method" type="hidden" value="PUT">
 
                         <fieldset>
-                            <div class="row">
-                                <div class="col col-6">
+
+                                <div class="col-md-6">
                                     <div class="form-group {{ form_error_class('firstname', $errors) }}">
                                         <label for="firstname">Firstname</label>
                                         <div class="input-group">
@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col col-6">
+                                <div class="col-md-6">
                                     <div class="form-group {{ form_error_class('lastname', $errors) }}">
                                         <label for="email">Lastname</label>
                                         <div class="input-group">
@@ -42,9 +42,9 @@
                                         {!! form_error_message('lastname', $errors) !!}
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
+
+
                                 <div class="col-md-6">
                                     <div class="form-group {{ form_error_class('cellphone', $errors) }}">
                                         <label for="cellphone">Cellphone</label>
@@ -60,10 +60,8 @@
                                         {!! form_error_message('telephone', $errors) !!}
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col col-6">
+                                <div class="col-md-6">
                                     <section class="form-group {{ form_error_class('email', $errors) }}">
                                         <label for="email">Email Address (readonly)</label>
                                         <div class="input-group">
@@ -74,7 +72,7 @@
                                     </section>
                                 </div>
 
-                                <div class="col col-6">
+                                <div class="col-md-6">
                                     <div class="form-group {{ form_error_class('password', $errors) }}">
                                         <label for="password">Password <small> (leave blank to keep it unchanged)</small></label>
                                         <div class="input-group">
@@ -84,10 +82,7 @@
                                         {!! form_error_message('password', $errors) !!}
                                     </div>
                                 </div>
-                            </div>
 
-
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group {{ form_error_class('born_at', $errors) }}">
                                         <label for="password">Date of Birth</label>
@@ -109,11 +104,10 @@
                                         {!! form_error_message('password_confirmation', $errors) !!}
                                     </div>
                                 </div>
-                            </div>
 
 
-                            <div class="row">
-                                <div class="col col-6">
+
+                                <div class="col-md-6">
                                     <section class="form-group {{ form_error_class('stream_key', $errors) }}">
                                         <label for="stream_key">Stream Key (readonly)</label>
                                         <div class="input-group">
@@ -124,7 +118,7 @@
                                     </section>
                                 </div>
 
-                                <div class="col col-6">
+                                <div class="col-md-6">
                                     <section class="form-group {{ form_error_class('api_key', $errors) }}">
                                         <label for="api_key">Api Key (readonly)</label>
                                         <div class="input-group">
@@ -134,49 +128,49 @@
                                         {!! form_error_message('api_key', $errors) !!}
                                     </section>
                                 </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>Gender</label>
-                                        <div class="inline-group">
-                                            <label class="radio" style="margin-top: 0px;">
-                                                <input type="radio" name="gender" value="male" {{ ($errors->any() && old('gender') == 'male'? 'checked="checked"' : user()->gender == 'male'? 'checked="checked"':'') }}>
-                                                <i></i>Male
-                                            </label>
-                                            <label class="radio" style="margin-top: 0px;">
-                                                <input type="radio" name="gender" value="female" {{ ($errors->any() && old('gender') == 'female'? 'checked="checked"' : user()->gender == 'female'? 'checked="checked"':'') }}>
-                                                <i></i>Female
-                                            </label>
-                                        </div>
-                                        {!! form_error_message('gender', $errors) !!}
+                                    <label for="api_key">Gender</label>
+                                    <div class="form-check">
+                                     <label class="form-check-label">
+                                       <span><i></i>Male</span>
+                                       <input type="radio" name="gender" value="male" {{ ($errors->any() && old('gender') == 'male'? 'checked="checked"' : user()->gender == 'male'? 'checked="checked"':'') }}>
+                                     </label>
+                                    </div>
+                                    <div class="form-check">
+                                     <label class="form-check-label">
+                                       <span><i></i>Female</span>
+                                       <input type="radio" name="gender" value="female" {{ ($errors->any() && old('gender') == 'female'? 'checked="checked"' : user()->gender == 'female'? 'checked="checked"':'') }}>
+                                     </label>
+                                     {!! form_error_message('gender', $errors) !!}
                                     </div>
                                 </div>
 
-                            </div>
+                                <div class="col-md-6">
+                                  <section class="form-group {{ form_error_class('photo', $errors) }}">
+                                      <label>Profile image (250 x 250)</label>
+                                      <div class="input-group">
+                                          <input id="photo-label" type="text" class="form-control" readonly placeholder="Browse for an image">
+                                          <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" onclick="document.getElementById('photo').click();">Browse</button>
+                                      </span>
+                                          <input id="photo" style="display: none" accept="{{ get_file_extensions('image') }}" type="file" name="photo" onchange="document.getElementById('photo-label').value = this.value">
+                                      </div>
+                                      {!! form_error_message('photo', $errors) !!}
+                                  </section>
 
-                            <section class="form-group {{ form_error_class('photo', $errors) }}">
-                                <label>Profile image (250 x 250)</label>
-                                <div class="input-group input-group-sm">
-                                    <input id="photo-label" type="text" class="form-control" readonly placeholder="Browse for an image">
-                                    <span class="input-group-btn">
-                                  <button type="button" class="btn btn-default" onclick="document.getElementById('photo').click();">Browse</button>
-                                </span>
-                                    <input id="photo" style="display: none" accept="{{ get_file_extensions('image') }}" type="file" name="photo" onchange="document.getElementById('photo-label').value = this.value">
-                                </div>
-                                {!! form_error_message('photo', $errors) !!}
-                            </section>
-
-                            @if(user()->image)
-                                <section>
-                                    <img src="{{ profile_image() }}" style="max-height: 300px;">
-                                    <input type="hidden" name="image" value="{{ user()->image }}">
-                                </section>
-                            @endif
+                                @if(user()->image)
+                                      <section>
+                                          <img src="{{ profile_image() }}" style="max-height: 230px !important;">
+                                          <input type="hidden" name="image" value="{{ user()->image }}">
+                                      </section>
+                                @endif
+                              </div>
                         </fieldset>
-
-                        @include('admin.partials.form_footer')
+                        <br>
+                        <div class="col-md-12">
+                          @include('admin.partials.form_footer')
+                        </div>
                     </form>
                 </div>
             </div>

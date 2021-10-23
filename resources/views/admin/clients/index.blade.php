@@ -37,7 +37,7 @@
                                 <td>{{ $item->roles_string }}</td>
                                 <td>{{ ($item->logged_in_at)? $item->logged_in_at->diffForHumans():'-' }}</td>
                                 <td>
-                                    @if($item->id > 2)
+                                    @if($item->id >= 1)
                                         <div class="btn-toolbar">
                                             @if($item->confirmed_at)
                                                 <div class="btn-group">

@@ -1,13 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
 use Password;
 use Carbon\Carbon;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\WebsiteController;
-
 class ResetPasswordController extends AuthController
 {
     /**
@@ -22,10 +19,8 @@ class ResetPasswordController extends AuthController
     {
         $email = request('email');
         $this->showPageBanner = false;
-
         return $this->view('reset_password', compact('token', 'email'));
     }
-
     /**
      * Reset the given user's password.
      *
@@ -39,25 +34,19 @@ class ResetPasswordController extends AuthController
             'email'    => 'required|string|email',
             'password' => 'required|string|min:6|confirmed',
         ]);
-
         $credentials = $request->only('email', 'password', 'password_confirmation', 'token');
-
         // response
         $response = Password::broker()->reset($credentials, function ($user, $password) {
             $user->password = bcrypt($password);
             $user->password_updated_at = Carbon::now();
             $user->save();
         });
-
         switch ($response) {
             case Password::PASSWORD_RESET:
                 alert()->success('Success',
                     'Congratulations, try signing in with your new password');
-
                 $this->logLogin($request, 'password-reset');
-
                 return redirect(route('login'));
-
             default:
                 return redirect()
                     ->back()

@@ -1,0 +1,155 @@
+.video-js-custom-skin .vjs-menu-button-inline.vjs-slider-active,.video-js-custom-skin .vjs-menu-button-inline:focus,.video-js-custom-skin .vjs-menu-button-inline:hover,.video-js-custom-skin.vjs-no-flex .vjs-menu-button-inline {
+    width: 10em
+}
+
+.vjs-watermark {
+  bottom: unset !important;
+  left: unset !important;
+  position: absolute;
+  top: 0;
+  margin-top: 1.5em;
+  margin-left: 1.5em;
+  max-height: 2em;
+  z-index: unset !important;
+}
+
+.vjs-watermark img {
+  width: auto !important;
+  max-height: 90px;
+}
+
+.video-js-custom-skin .vjs-controls-disabled .vjs-big-play-button {
+    display: none!important
+}
+
+.video-js-custom-skin .vjs-control {
+    width: 3em
+}
+
+.video-js-custom-skin .vjs-menu-button-inline:before {
+    width: 1.5em
+}
+
+.vjs-menu-button-inline .vjs-menu {
+    left: 3em
+}
+
+.vjs-paused.vjs-has-started.video-js-custom-skin .vjs-big-play-button,.video-js-custom-skin.vjs-ended .vjs-big-play-button,.video-js-custom-skin.vjs-paused .vjs-big-play-button {
+    display: block
+}
+
+.video-js-custom-skin .vjs-load-progress div,.vjs-seeking .vjs-big-play-button,.vjs-waiting .vjs-big-play-button {
+    display: none!important
+}
+
+.video-js-custom-skin .vjs-mouse-display:after,.video-js-custom-skin .vjs-play-progress:after {
+    padding: 0 .4em .3em
+}
+
+.video-js-custom-skin.vjs-ended .vjs-loading-spinner {
+    display: none;
+}
+
+.video-js-custom-skin.vjs-ended .vjs-big-play-button {
+    display: block !important;
+}
+
+video-js.vjs-ended .vjs-big-play-button,.video-js-custom-skin.vjs-paused .vjs-big-play-button,.vjs-paused.vjs-has-started.video-js-custom-skin .vjs-big-play-button {
+    display: block;
+    color: #2d88cf;
+}
+
+.video-js-custom-skin .vjs-big-play-button {
+    top: 50%;
+    left: 50%;
+    margin-left: -1.5em;
+    margin-top: -1em
+}
+
+.video-js-custom-skin .vjs-big-play-button {
+    background-color: rgba(0,0,0,0.35);
+    font-size: 5em;
+    color: rgba(45,136,207,0,5);
+    border-radius: 50%;
+    height: 2em !important;
+    line-height: 2em !important;
+    margin-top: -1em !important
+}
+
+.video-js-custom-skin:hover .vjs-big-play-button,.video-js-custom-skin .vjs-big-play-button:focus,.video-js-custom-skin .vjs-big-play-button:active {
+    background-color: rgba(0,0,0,0.35);
+    color: rgba(45,136,207,0,5);
+}
+
+vjs-playlist {
+  float: left;
+  width: auto;
+}
+.vjs-playlist-item{
+  margin-bottom: 5px;
+}
+.vjs-playlist-item > picture > img {
+  max-width: 200px;
+  margin: 5px;
+  float: right;
+}
+
+.vjs-playlist.vjs-playlist-horizontal {
+  float: none;
+  height: 120px;
+  width: 600px;
+}
+
+.video-js-custom-skin .vjs-loading-spinner {
+    border-color: rgba(45,136,207,0,5);
+    color: rgba(45,136,207,0,5);
+    -webkit-box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
+}
+
+.video-js-custom-skin .vjs-control-bar2 {
+    background-color: transparent
+}
+
+.video-js-custom-skin .vjs-control-bar {
+    background-color: rgba(0,0,0,0) !important;
+    color: rgba(45,136,207,1);
+    font-size: 1.5em;
+}
+
+.video-js-custom-skin .vjs-play-progress,.video-js-custom-skin  .vjs-volume-level {
+    background-color: rgba(45,136,207,0,5);
+    color: rgba(45,136,207,0,5);
+    -webkit-box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.75);
+}
+
+.video-js-custom-skin .vjs-big-play-button {
+    height: 2em !important;
+    width: 2em !important;
+    line-height: 1.9em !important;
+    margin-top: -1em !important;
+    margin-left: -1em;
+    border-width: 3px;
+    font-weight: bolder;
+    color: rgba(45,136,207,0,5);
+}
+
+.video-js-custom-skin .vjs-icon-play:before, .video-js-custom-skin .vjs-big-play-button:before {
+    font-size: 50px;
+}
+
+.video-js-custom-skin  .vjs-progress-holder {
+    font-size: 1.7em;
+    border-radius: 10px;
+}
+
+.video-js-custom-skin .vjs-progress-holder .vjs-play-progress, .video-js-custom-skin .vjs-progress-holder .vjs-load-progress, .video-js-custom-skin .vjs-progress-holder .vjs-load-progress div, .video-js-custom-skin .vjs-slider,.vjs-volume-level {
+    border-radius: 10px;
+}
+
+.video-js-custom-skin .vjs-load-progress {
+    background: rgba(45,136,207,0,5);
+}

@@ -1,3 +1,15 @@
+<style>
+#chart-page-views {
+  width:100% !important;
+  max-height:300px;
+}
+
+.chart-container {
+  position: relative;
+  margin: auto;
+
+}
+</style>
 <div class="box box-primary" id="box-total-views">
     <div class="box-header with-border">
         <h3 class="box-title">
@@ -13,8 +25,10 @@
             <i class="fa fa-fw fa-spinner fa-spin"></i>
         </div>
 
-        <div id="chart-page-views-legend" class="chart-legend"></div>
-        <canvas id="chart-page-views"></canvas>
+        <div class="chart-container">
+            <div id="chart-page-views-legend" class="chart-legend"></div>
+            <canvas id="chart-page-views"></canvas>
+        </div>
     </div>
 </div>
 
@@ -24,9 +38,7 @@
         $(function ()
         {
             var chart;
-
             initToolbarDateRange('#box-total-views .daterange', updateChart);
-
             /**
              * Get the chart's data
              * @param view
@@ -48,17 +60,23 @@
                 }, createLineChart);
             }
 
+            function beforePrintHandler () {
+              for (var id in Chart.instances) {
+                Chart.instances[id].resize()
+              }
+            }
+
             function createLineChart(data)
             {
+              beforePrintHandler();
                 // total page views and visitors line chart
                 var ctx = document.getElementById("chart-page-views").getContext("2d");
-
                 chart = new Chart(ctx).Line(data, {
+                    maintainAspectRatio: false,
+                    backgroundColor: 'transparent',
                     multiTooltipTemplate: "<%= value %> - <%= datasetLabel %>"
                 });
-
                  $('#box-total-views .loading-widget').slideUp();
-
                 $('#chart-page-views-legend').html(chart.generateLegend());
             }
 

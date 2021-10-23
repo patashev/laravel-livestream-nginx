@@ -11,7 +11,7 @@
                     </h3>
                 </div>
 
-                <div class="box-body no-padding">
+                <div class="box-body">
 
                     @include('admin.partials.info')
 
@@ -20,23 +20,22 @@
                         <input name="_method" type="hidden" value="{{isset($item)? 'PUT':'POST'}}">
 
                         <fieldset>
-                            <div class="row">
-                                <div class="col col-6">
-                                    <div class="form-group {{ form_error_class('title', $errors) }}">
-                                        <label for="id-title">Title</label>
-                                        <input type="text" class="form-control input-generate-slug" id="id-title" name="title" placeholder="Please insert the Title" value="{{ ($errors && $errors->any()? old('title') : (isset($item)? $item->title : '')) }}">
-                                        {!! form_error_message('title', $errors) !!}
-                                    </div>
-                                </div>
-
-                                <div class="col col-6">
-                                    <div class="form-group {{ form_error_class('category_id', $errors) }}">
-                                        <label for="category">Category</label>
-                                        {!! form_select('category_id', ([0 => 'Please select a Category'] + $categories), ($errors && $errors->any()? old('category_id') : (isset($item)? $item->category_id : '')), ['class' => 'select2 form-control']) !!}
-                                        {!! form_error_message('category_id', $errors) !!}
-                                    </div>
+                            <div class="col col-6">
+                                <div class="form-group {{ form_error_class('title', $errors) }}">
+                                    <label for="id-title">Title</label>
+                                    <input type="text" class="form-control input-generate-slug" id="id-title" name="title" placeholder="Please insert the Title" value="{{ ($errors && $errors->any()? old('title') : (isset($item)? $item->title : '')) }}">
+                                    {!! form_error_message('title', $errors) !!}
                                 </div>
                             </div>
+
+                            <div class="col col-6">
+                                <div class="form-group {{ form_error_class('category_id', $errors) }}">
+                                    <label for="category">Category</label>
+                                    {!! form_select('category_id', ([0 => 'Please select a Category'] + $categories), ($errors && $errors->any()? old('category_id') : (isset($item)? $item->category_id : '')), ['class' => 'select2 form-control']) !!}
+                                    {!! form_error_message('category_id', $errors) !!}
+                                </div>
+                            </div>
+
 
                             <div class="form-group {{ form_error_class('summary', $errors) }}">
                                 <label for="summary">Summary (optional)</label>

@@ -10,12 +10,12 @@
             <h2 class="d-none">Navigation</h2>
             <div id="main-navbar-collapse" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    @if(isset($navigation))
+                    <!-- @if(isset($navigation))
                         @include ('website.partials.navigation.navigation',
                           ['collection' => $navigation['root'],
                           'navigation' => $navigation]
                         )
-                    @endif
+                    @endif -->
                 </ul>
             </div>
         </div>

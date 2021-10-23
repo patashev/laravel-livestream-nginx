@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
-use Titan\Models\TitanCMSModel;
+//use Titan\Models\TitanCMSModel;
+
+use Bpocallaghan\Titan\Models\TitanCMSModel;
+
 use Bpocallaghan\Sluggable\HasSlug;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

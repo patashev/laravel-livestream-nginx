@@ -10,7 +10,7 @@ use App\Models\PageContent;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use App\Http\Controllers\Admin\AdminController;
-use Titan\Models\Traits\ImageThumb;
+use Bpocallaghan\Titan\Models\Traits\ImageThumb;
 
 class PageContentController extends AdminController
 {

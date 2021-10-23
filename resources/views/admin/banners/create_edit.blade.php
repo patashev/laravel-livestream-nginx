@@ -104,6 +104,14 @@
                                 </div>
                             </div>
 
+
+
+                            <div class="form-group {{ form_error_class('categories', $errors) }}">
+                                <label for="roles">Roles</label>
+                                {!! form_select('categories[]', $categories, ($errors && $errors->any()? old('categories') : (isset($item) ? $item->category->pluck('id')->all() : '')), ['class' => 'select2 form-control', 'multiple']) !!}
+                                {!! form_error_message('categories', $errors) !!}
+                            </div>
+
                             <section class="form-group {{ form_error_class('photo', $errors) }}">
                                 <label>Browse for an Image (1600 x 500)</label>
                                 <div class="input-group input-group-sm">

@@ -1,7 +1,9 @@
 <?php
 namespace App\Models;
 
-use Titan\Models\TitanCMSModel;
+#use Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Models\TitanCMSModel;
+
 use Bpocallaghan\Sluggable\HasSlug;
 use App\Models\Traits\Sidebarable;
 use Illuminate\Database\Eloquent\SoftDeletes;

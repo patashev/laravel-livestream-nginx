@@ -11,27 +11,43 @@
                     </h3>
                 </div>
 
-                <div class="box-body no-padding">
+                <div class="box-body">
 
                     @include('admin.partials.info')
 
-                    <div class="col-sm-12">
-                        <div class=" well-sm well-toolbar">
-                            <form action="/admin/general/clients/password/email" accept-charset="UTF-8" method="POST">
-                                <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
-                                <input type="hidden" name="email" value="{{ ($errors->any()? old('email') : $item->email) }}">
+                  <div class="row">
+                    <div class="col col-xs-6">
+                      <form action="/admin/general/clients/password/email" accept-charset="UTF-8" method="POST">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                        <input type="hidden" name="email" value="{{ ($errors->any()? old('email') : $item->email) }}">
 
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="submit" class="btn btn-small btn-primary btn-flat btn-submit pull-right">
-                                            <i class="fa fa-refresh"></i> Send Forgot Password
-                                            Instructions
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <button type="submit" class="btn btn-small btn-primary btn-flat btn-submit pull-right">
+                              <i class="fa fa-refresh"></i> Send Forgot Password
+                              Instructions
+                            </button>
+                          </div>
                         </div>
+                      </form>
                     </div>
+                    <div class="col col-xs-6">
+                      <form action='/admin/general/clients/resend/{{$item->id}}' accept-charset="UTF-8" method="POST">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
+                        <input type="hidden" name="email" value="{{ ($errors->any()? old('email') : $item->email) }}">
+
+                        <div class="row">
+                          <div class="col-xs-12">
+                            <button type="submit" class="btn btn-small btn-primary btn-flat btn-submit pull-right">
+                              <i class="fa fa-refresh"></i> Send Activate user
+                              Instructions
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+
 
                     <form id="form-edit" method="POST" action="{{$selectedNavigation->url . (isset($item)? "/{$item->id}" : '')}}" accept-charset="UTF-8" enctype="multipart/form-data">
                         <input name="_token" type="hidden" value="{{ csrf_token() }}">
@@ -39,7 +55,7 @@
 
                         <fieldset>
                             <div class="row">
-                                <div class="col col-6">
+                                <div class="col col-xs-6">
                                     <div class="form-group {{ form_error_class('firstname', $errors) }}">
                                         <label for="firstname">Firstname</label>
                                         <div class="input-group">
@@ -50,7 +66,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col col-6">
+                                <div class="col col-xs-6">
                                     <div class="form-group {{ form_error_class('lastname', $errors) }}">
                                         <label for="email">Lastname</label>
                                         <div class="input-group">
@@ -63,7 +79,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-xs-6">
                                     <div class="form-group {{ form_error_class('cellphone', $errors) }}">
                                         <label for="cellphone">Cellphone</label>
                                         <input type="text" class="form-control" id="cellphone" name="cellphone" placeholder="Please insert the Cellphone" value="{{ ($errors && $errors->any()? old('cellphone') : $item->cellphone ) }}">
@@ -71,7 +87,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-xs-6">
                                     <div class="form-group {{ form_error_class('telephone', $errors) }}">
                                         <label for="telephone">Telephone</label>
                                         <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Please insert the Telephone" value="{{ ($errors && $errors->any()? old('telephone') : $item->telephone ) }}">
@@ -81,7 +97,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col col-6">
+                                <div class="col col-xs-6">
                                     <section class="form-group {{ form_error_class('email', $errors) }}">
                                         <label for="email">Email Address</label>
                                         <div class="input-group">
@@ -92,7 +108,7 @@
                                     </section>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-xs-6">
                                     <div class="form-group {{ form_error_class('born_at', $errors) }}">
                                         <label for="password">Date of Birth</label>
                                         <div class="input-group">

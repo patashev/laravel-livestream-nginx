@@ -5,9 +5,14 @@ namespace App\Models;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Titan\Models\TitanCMSModel;
-use Titan\Models\Traits\ActiveTrait;
-use Titan\Models\Traits\ImageThumb;
+//use Titan\Models\TitanCMSModel;
+
+use Bpocallaghan\Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Models\Traits\ActiveTrait;
+use Bpocallaghan\Titan\Models\Traits\ImageThumb;
+
+//use Titan\Models\Traits\ActiveTrait;
+//use Titan\Models\Traits\ImageThumb;
 
 class Banner extends TitanCMSModel
 {
@@ -34,6 +39,7 @@ class Banner extends TitanCMSModel
         'active_from' => 'nullable|date',
         'active_to'   => 'nullable|date',
         'photo'       => 'required|image|max:6000|mimes:jpg,jpeg,png,bmp',
+        'video_category_id' => 'nullable'
     ];
 
     /**
@@ -53,6 +59,23 @@ class Banner extends TitanCMSModel
 	{
 		return $this->belongsToMany(Page::class);
 	}
+
+
+
+
+  /**
+   * Get the category
+   */
+  public function category()
+  {
+      return $this->hasMany(VideoRecordsCategory::class, 'id', 'video_category_id');
+  }
+
+
+  public function getTitleSlugAttribute()
+  {
+      return $this->attributes['name'] . ' (' . $this->attributes['slug'] . ')';
+  }
 
     /**
      * Get the is active label attribute

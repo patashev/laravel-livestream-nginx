@@ -5,8 +5,12 @@ use App\Models\Traits\Videorecordable;
 use App\User;
 use Bpocallaghan\Sluggable\HasSlug;
 use Bpocallaghan\Sluggable\SlugOptions;
-use Titan\Models\TitanCMSModel;
-use Titan\Models\Traits\ActiveTrait;
+//use Titan\Models\TitanCMSModel;
+
+use Bpocallaghan\Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Models\Traits\ActiveTrait;
+
+//use Titan\Models\Traits\ActiveTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -20,6 +24,7 @@ class VideoRecords extends TitanCMSModel
     use SoftDeletes, HasSlug, ActiveTrait, Videorecordable;
 
     protected $table = 'video_records';
+
 
     protected $guarded = ['id'];
 
@@ -48,7 +53,6 @@ class VideoRecords extends TitanCMSModel
         'channels'  => 'nullable|number',
         'format_name'  => 'nullable|string',
         'format_long_name'  => 'nullable|string',
-        'file_name'  => 'nullable|string',
         'file_path'  => 'nullable|string',
         'thumb_path'  => 'nullable|string',
         'prefix'  => 'nullable|string',
@@ -89,11 +93,48 @@ class VideoRecords extends TitanCMSModel
         return $this->belongsTo(VideoRecordsCategory::class, 'category_id', 'id');
     }
 
+
+
+    /**
+     * Get all of the album's videos.
+     */
+    public function morphedVideos()
+    {
+        return $this->hasMany(VideoRecordImages::class, 'video_record_id', 'id');
+    }
+
+
+    /**
+     * Get the category
+     */
+    public function playlistItem()
+    {
+        return $this->hasMany(VideoRecordPlaylistRelation::class, 'video_entry_id', 'id');
+    }
+
+
+    /**
+     * Get all of the models that own comments.
+     */
+    public function playlistable()
+    {
+        return $this->morphTo();
+    }
+
     /**
      * Get the options for generating the slug.
      */
     protected function getSlugOptions()
     {
         return SlugOptions::create()->generateSlugFrom('name');
+    }
+
+    public function getCoverPhoto(){
+      $video = $this->videos;
+      foreach ($video as $cover_photo){
+        if ($cover_photo->is_cover == true) {
+          return $cover_photo->urlForName($cover_photo->thumb);
+        }
+      }
     }
 }

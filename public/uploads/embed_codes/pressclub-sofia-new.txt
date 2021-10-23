@@ -16,7 +16,7 @@
                       data-setup='{"fluid": true, "ga": {"eventsToTrack": ["error"]}}'
                       poster='https://newlive.bta.bg/img/thumbs/thumb_pressclub-sofia-new.png'
                       >
-        <source src='https://newlive.bta.bg/hls/pressclub-sofia-newm3u8' type='application/x-mpegURL'>
+        <source src='https://newlive.bta.bg/hls/pressclub-sofia-new.m3u8' type='application/x-mpegURL'>
       </video>
       <script>
       $.getJSON('https://newlive.bta.bg/admin/video-records/live-stream/getipstats', function(location, textStatus, jqXHR) {

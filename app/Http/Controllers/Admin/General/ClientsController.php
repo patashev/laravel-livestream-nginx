@@ -10,6 +10,9 @@ use Redirect;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminController;
+use Illuminate\Mail\Mailable;
+use App\Events\UserRegistered;
+
 
 class ClientsController extends AdminController
 {
@@ -120,5 +123,19 @@ class ClientsController extends AdminController
         }
 
         return redirect()->back();
+    }
+
+
+
+    /**
+     * Send a reset link to the given user.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function reSendActivationEmail(Request $request, Mailable $mailer, $id){
+      $user = User::where('id',$id)->firstOrFail();
+      $userUpdateToken = $user->update(['confirmation_token' => 'confirmation_token']);
+      event(new UserRegistered($user, input('token')));
     }
 }

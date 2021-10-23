@@ -1,4 +1,4 @@
-console.log('watermark: Start');
+//console.log('watermark: Start');
 
 (function() {
   console.log('watermark: Init defaults');
@@ -11,8 +11,8 @@ console.log('watermark: Start');
         clickable: false,
         url: "",
         className: 'vjs-watermark',
-	text: false,
-	debug: false
+  text: false,
+  debug: false
     },
     extend = function() {
       var args, target, i, object, property;
@@ -68,6 +68,7 @@ console.log('watermark: Start');
         img = document.createElement('img');
         div.appendChild(img);
         img.src = options.file;
+        img.style.maxWidth = options.width+"px";
     }
 
     //img.style.bottom = "0";
@@ -86,19 +87,27 @@ console.log('watermark: Start');
     {
       div.style.bottom = "0";
       div.style.right = "0";
+      //console.log('watermark: player:' + player.width + 'x' + player.height);
     }
     else if ((options.ypos === 100) && (options.xpos === 0)) // Bottom left
     {
       div.style.bottom = "0";
       div.style.left = "0";
     }
+    else if ((options.ypos === 80) && (options.xpos === 80)) // Bottom left
+    {
+      //div.style.bottom = (this.width() / 5)+50+"px";
+      //div.style.left = (this.height() / 5)+15+"px";
+      div.style.top = "0px";
+      div.style.position = 'absolute';
+    }
     else if ((options.ypos === 50) && (options.xpos === 50)) // Center
     {
       if (options.debug) console.log('watermark: player:' + player.width + 'x' + player.height);
       if (options.debug) console.log('watermark: video:' + video.videoWidth + 'x' + video.videoHeight);
       if (options.debug) console.log('watermark: image:' + img.width + 'x' + img.height);
-      div.style.top = (this.height()/2)+"px";
-      div.style.left = (this.width()/2)+"px";
+      div.style.top = (this.height()*3)+"px";
+      div.style.left = (this.width()*3)+"px";
     }
     div.style.opacity = options.opacity;
 

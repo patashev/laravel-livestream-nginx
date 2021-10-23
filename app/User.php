@@ -1,20 +1,15 @@
 <?php
-
 namespace App;
-
 use App\Models\Traits\UserAdmin;
 use App\Models\Traits\UserHelper;
 use App\Models\Traits\UserRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
 class User extends Authenticatable
 {
     use Notifiable, SoftDeletes, UserHelper, UserRoles, UserAdmin;
-
     protected $appends = ['fullname'];
-
     /**
      * The attributes that are mass assignable.
      *
@@ -40,7 +35,6 @@ class User extends Authenticatable
         'confirmed_at',
         'disabled_at',
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -55,9 +49,7 @@ class User extends Authenticatable
         'confirmation_token',
         'disabled_at'
     ];
-
     protected $dates = ['confirmed_at', 'deleted_at', 'logged_in_at', 'activated_at'];
-
     /**
      * Validation rules for this model
      */
@@ -68,11 +60,9 @@ class User extends Authenticatable
         'email'     => 'required|email|unique:users',
         'password'  => 'required|min:4|confirmed',
         //'token'     => 'required|exists:user_invites,token',
-
         //'cellphone' => 'required|min:3:max:255',
         //'photo'     => 'required|image|max:6000|mimes:jpg,jpeg,png,bmp',
     ];
-
     /**
      * Validation rules for this model
      */

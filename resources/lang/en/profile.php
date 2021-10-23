@@ -1,34 +1,22 @@
 <?php
 
 return [
+    'profile'   => 'Профил',
+    'update_my_information' => 'Обнови моята информация',
 
-    /*
-    |--------------------------------------------------------------------------
-    | Authentication Language Lines
-    |--------------------------------------------------------------------------
-    |
-    | The following language lines are used during authentication for various
-    | messages that we need to display to the user. You are free to modify
-    | these language lines according to your application's requirements.
-    |
-    */
+    'firstname' => 'Име',
+    'enter_firstname' => 'Въведи име',
 
-    'profile'   => 'Profile',
-    'update_my_information' => 'Update my Information',
+    'lastname' => 'Фамилия',
+    'enter_lasttname' => 'Въведи фамилия',
 
-    'firstname' => 'First Name',
-    'enter_firstname' => 'Enter First Name',
-
-    'lastname' => 'Last Name',
-    'enter_lasttname' => 'Enter Last Name',
-
-    'cellphone' => 'Cellphone',
+    'cellphone' => 'телефон',
 
     'email' => 'Email',
-    'enter_email' => 'Enter email',
+    'enter_email' => 'Въведи email',
 
-    'password' => 'Password (leave blank to keep it unchanged)',
-    'confirm_password' => 'Confirm password',
-    'enter_confirm_password' => 'Confirm password',
+    'password' => 'Парола (Оставете празно ако няма да променяте)',
+    'confirm_password' => 'Потвърди парола',
+    'enter_confirm_password' => 'Потвърди парола',
     'update' => 'Update',
 ];

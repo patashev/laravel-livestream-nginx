@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Titan\Models\TitanAdminNavigation;
+//use Titan\Models\TitanAdminNavigation;
+use Bpocallaghan\Titan\Models\TitanAdminNavigation;
 
 class NavigationAdmin extends TitanAdminNavigation
 {

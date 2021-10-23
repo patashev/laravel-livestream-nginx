@@ -62,7 +62,6 @@ Route::group([
         Route::resource('/faqs', 'FAQsController');
     });
 
-
     // changelogs
     Route::resource('settings/changelogs', 'Changelogs\Controllers\Admin\ChangelogsController');
 

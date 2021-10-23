@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use App\Models\Banner;
 use App\Http\Requests;
 use Titan\Controllers\TitanWebsiteController;
+use App\Models\VideoRecords;
+use App\Models\VideoRecordsCategory;
+use App\Models\PlayerSettings;
 
 class WebsiteController extends BaseWebsiteController
 {
@@ -80,18 +83,24 @@ class WebsiteController extends BaseWebsiteController
 
 
 
+
+
     protected function getBanners()
     {
         $items = $this->page->banners;
-
         // if no banners linked to page - get default
         if ($items->count() <= 0) {
             $items = Banner::active()
                 ->where('is_website', 1)
                 ->orderBy('list_order')
                 ->get();
+            $items->cattegory = "without_cat";
         }
-
+        foreach ($items as $item);
+        if($item->video_category_id){
+          $items->videos = VideoRecordsCategory::where('id', $item->video_category_id)->first()->videosForBannersByCattegory;
+          $items->cattegory = "with_cat";
+        }
         return $items;
     }
 

@@ -1,7 +1,18 @@
 <div class="banner-container">
     <h2 class="d-none">Banner</h2>
     <div id="banner-carousel" class="carousel slide banners" data-ride="carousel">
-        <div class="carousel-inner" role="listbox">
+        <div class="carousel-inner" role="listbox" style="max-height:500px !important; overflow:hidden !important;">
+          @if($banners->cattegory == "with_cat")
+            @foreach($banners->videos as $k => $video)
+              <div class="carousel-item {{ $k == 0? 'active':'' }}">
+                  <img src="{{ '/uploads/videos/'.$video->getCoverPhotoAttribute()->filename }}" class="banner-image"/>
+                  <div class="carousel-caption">
+                    
+
+                  </div>
+              </div>
+            @endforeach
+          @else
             @foreach($banners as $k => $banner)
                 <div class="carousel-item {{ $k == 0? 'active':'' }}">
                     <img src="{{ uploaded_images_url($banner->image) }}" class="banner-image"/>
@@ -18,6 +29,7 @@
                     </div>
                 </div>
             @endforeach
+          @endif
         </div>
         <a class="carousel-control-prev" href="#banner-carousel" role="button" data-slide="prev">
             <span class="fa fa-chevron-left" aria-hidden="true"></span>
@@ -29,4 +41,3 @@
         </a>
     </div>
 </div>
-

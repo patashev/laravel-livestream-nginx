@@ -6,6 +6,9 @@ namespace App\Http\Controllers\Website;
 use App\Models\VideoRecords;
 use App\Models\VideoRecordImages;
 use App\Models\VideoRecordsCategory;
+use App\Models\VideoRecordPlaylist;
+use App\Models\VideoRecordPlaylistRelation;
+use App\Models\PlayerSettings;
 use App\Models\Sidebars;
 use App\Models\ModulesToPage;
 use Illuminate\Http\Request;
@@ -14,6 +17,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Pagination\LengthAwarePaginator;
 
+
 // use Kaltura\Client\Configuration as KalturaConfiguration;
 // use Kaltura\Client\Client as KalturaClient;
 // use Kaltura\Client\Enum\SessionType as KalturaSessionType;
@@ -21,7 +25,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 // use Kaltura\Client\Enum\EntryStatus as KalturaEntryStatus;
 // use Kaltura\Client\Enum\MediaType as KalturaMediaType;
 // use Kaltura\Client\Type\FilterPager as KalturaFilterPager;
-
 
 class VideoController extends WebsiteController
 {
@@ -87,10 +90,6 @@ class VideoController extends WebsiteController
 
 
 
-
-
-
-
      public function getCards( $item ){
        $cover_photo = $this->getCoverPhoto($item->videos);
        $cover = "<a href='/pages/videos/".$item->id."'>
@@ -151,22 +150,46 @@ class VideoController extends WebsiteController
 
 
 
-
-     public function showAlbum($id)
+    /**
+    * Show the video records for datatables.
+    *
+    * @param  Request  $request
+    * @return Response
+    */
+    public function showAlbum(Request  $request, $id)
      {
          $album = VideoRecords::where('id', $id)->first();
+         $cattegory_object = VideoRecordsCategory::where('id', $album->category_id)->first();
+         $settings = PlayerSettings::where('id', $cattegory_object->player_settings_id)->first();
+
+         $album->player_settings = $settings;
+         $albumCover = VideoRecordImages::where([
+             ['video_record_id', '=', $album->id],
+             ['is_cover', '=', true],
+           ])->first();
+         $album->cover = $albumCover;
+
+         $categories = VideoRecordsCategory::all();
          if(!$album) {
              return redirect('/videos');
          }
-
-
          $similar_videos = VideoRecords::with('videos')->get();
          $arrayAlbumTitle[] = preg_split('/\s+/', $album->title);
          $items = $album->videos;
          $this->addBreadcrumbLink($album->title, '/videos');
 
-         $relatedItems = array();
 
+        if($settings && $settings->playlist == true){
+          $test = VideoRecordPlaylistRelation::where('video_entry_id', $album->id)->first();
+          $playListVideos = VideoRecordPlaylist::where('id', $test->playlist_id)->first();
+          //$playlist = $playListVideos->video;
+        }
+
+
+        dd($cattegory_object);
+
+
+         $relatedItems = array();
          if (strlen($album->title) > 3) {
            foreach ($similar_videos as $similar_video) {
              similar_text($similar_video->title, $album->title, $percent);
@@ -177,14 +200,14 @@ class VideoController extends WebsiteController
              }
            }
          }
-         if ($relatedItems) {
-           return $this->view('video.album_show')
+         $playlist = (isset($playListVideos)) ? $playListVideos : null;
+
+         dd($album->playlist_videos);
+         $album->related = (isset($relatedItems)) ? $relatedItems : null;
+         return $this->view('video.album_show')
+                ->with('playlist', $playlist)
                 ->with('album', $album)
-                ->with('related', $relatedItems);
-         }else {
-           return $this->view('video.album_show')
-                ->with('album', $album);
-         }
+                ->with('categories', $categories);
      }
 
     /**
@@ -216,7 +239,7 @@ class VideoController extends WebsiteController
      */
     public function show(VideoRecords $videoRecords)
     {
-        //
+
     }
 
     /**

@@ -3,7 +3,10 @@
 namespace App\Models;
 
 #use Illuminate\Database\Eloquent\Model;
-use Titan\Models\TitanCMSModel;
+//use Titan\Models\TitanCMSModel;
+
+use Bpocallaghan\Titan\Models\TitanCMSModel;
+
 use Bpocallaghan\Sluggable\HasSlug;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -13,7 +16,7 @@ class Stream extends TitanCMSModel
 
     protected $table = 'streams';
 
-        protected $guarded = ['id'];
+    protected $guarded = ['id'];
 
     /**
      * Validation rules for this model
@@ -31,6 +34,7 @@ class Stream extends TitanCMSModel
         'fbStreamURL'   => 'required|min:3:max:255',
         'active_from' => 'nullable|date',
         'active_to'   => 'nullable|date',
+        'player_settings_id' => 'nullable'
     ];
 
     static public $messages = ['success' => 'done', 'error' => 'try again'];
@@ -115,6 +119,15 @@ class Stream extends TitanCMSModel
     }
 
 
+    /**
+     * Get player settings
+     */
+    public function player_settings()
+    {
+        return $this->belongsTo(PlayerSettings::class, 'player_settings_id', 'id');
+    }
+
+
 
     /**
      * Get all the rows as an array (ready for dropdowns)
@@ -127,4 +140,3 @@ class Stream extends TitanCMSModel
     }
 
 }
-

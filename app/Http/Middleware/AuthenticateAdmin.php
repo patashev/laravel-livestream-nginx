@@ -1,10 +1,7 @@
 <?php
-
 namespace App\Http\Middleware;
-
 use Auth;
 use Closure;
-
 class AuthenticateAdmin
 {
     /**
@@ -20,10 +17,8 @@ class AuthenticateAdmin
         // not logged in as an admin - logout and go home
         if (!user()->isAdmin()) {
             \Auth::logout();
-
             return redirect()->guest('/');
         }
-
         return $next($request);
     }
 }

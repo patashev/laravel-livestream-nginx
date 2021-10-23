@@ -1,0 +1,75 @@
+*, *:before, *:after {box-sizing: border-box;}
+ol {margin: 0; padding: 0;}
+
+
+
+
+.directories ul {
+	/*margin: 0px 0px 0px 20px; */
+	list-style: none; line-height: 2em; font-family: Arial;}
+.directories ul li{ font-size: 16px; position: relative;}
+/*.directories ul li:before{ position: absolute; left: -15px; top: 0px; content: ''; display: block; border-left: 1px solid #ddd; height: 1em; border-bottom: 1px solid #ddd; width: 10px; }*/
+
+/*.directories ul li:after{ position: absolute; left: -5px; bottom: -7px; content: ''; display: block; border-left: 1px solid #ddd; height: 100%; }*/
+
+.directories .root{ margin: 0px 0px 0px -20px; }
+/*.directories .root:before{ display: none; }*/
+/*.directories .root:after{ display: none; }*/
+
+/*.directories ul li:last-child{ display: none }*/
+/*.directories ul li:last-child:after{ display: none }*/
+
+
+/* List styling */
+.jslists{
+	font-size: 1.3rem;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.jslist-ul, .jslist-ol, .jslist-li {
+	/*margin-left: 12px;*/
+}		/* Unordered lists */
+
+#simple_list > li:nth-of-type(1n+1){
+	padding: 5px;
+	border-bottom: #ced4da 1px solid;
+}
+.jsl-open > li:nth-child(1n+1) > div:nth-child(1n+1){
+	padding: 5px,0px,5px,5px ;
+	border-bottom: #ced4da 1px solid;
+}
+#simple_list > li:nth-child(1n+1) > ul:nth-child(1n+1) > li:nth-child(1n+1) > div:nth-child(1n+1) > div:nth-child(1n+1){
+	margin-right: 0px;
+}
+
+.jsl-collapsed {display: none;}
+.jsl-list-closed {
+	float: left;
+	clear: both;
+	width: 30px;
+	height: 30px;
+	cursor: pointer;
+	color: rgb(0, 123, 255);
+	font-weight: 900;
+	background: url('https://api.iconify.design/fa-folder-o.svg') no-repeat center center / contain;
+	/*background-image: url('data:image/svg+xml;utf8,<svg aria-hidden="true" data-prefix="far" data-icon="plus-square" class="svg-inline--fa fa-plus-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12zm96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"></path></svg>');*/
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.jsl-open {display: block;}
+.jsl-list-open {
+	color: rgb(0, 123, 255);
+	font-weight: 900;
+	background: url('https://api.iconify.design/fa-folder-open-o.svg') no-repeat center center / contain;
+	/*background-image: url('data:image/svg+xml;utf8,<svg aria-hidden="true" data-prefix="far" data-icon="minus-square" class="svg-inline--fa fa-minus-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M108 284c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h232c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12H108zM448 80v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"></path></svg>');*/
+}
+
+.jsl-list-closed-new {
+	float: left;
+	clear: both;
+	cursor: pointer;
+	color: rgb(0, 123, 255);
+	font-weight: 900;
+	background: url('https://api.iconify.design/fa-folder-o.svg') no-repeat center center / contain;
+	background-position-x: center;
+	background-position-y: center;
+}

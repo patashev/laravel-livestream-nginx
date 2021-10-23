@@ -1,14 +1,11 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
-
 use App\User;
 use Carbon\Carbon;
 use App\Models\UserInvite;
 use Illuminate\Http\Request;
 use App\Events\UserRegistered;
 use App\Notifications\UserConfirmedAccount;
-
 class RegisterController extends AuthController
 {
     /**
@@ -20,13 +17,10 @@ class RegisterController extends AuthController
     public function showRegistrationForm($token = null)
     {
         $this->showPageBanner = false;
-
         // check if token is valid
         $userInvite = UserInvite::whereToken($token)->whereNull('claimed_at')->first();
-
         return $this->view('register')->with('userInvite', $userInvite);
     }
-
     /**
     * @param int $length
     * @return string
@@ -41,7 +35,6 @@ class RegisterController extends AuthController
         }
         return $randomString;
     }
-
     /**
      * Handle a registration request for the application.
      *
@@ -51,7 +44,6 @@ class RegisterController extends AuthController
     public function register(Request $request)
     {
         $attributes = request()->validate(User::$rules);
-
         // create new user
         // /dd($this->generateRandomString());
         $user = User::create([
@@ -63,20 +55,15 @@ class RegisterController extends AuthController
             'api_key'            => $this->generateRandomString(),
             'confirmation_token' => 'confirmation_token',
         ]);
-
         // add user roles
         // send email
         // log activity
         event(new UserRegistered($user, input('token')));
-
         alert()->success('Thank you,',
             'your account has been created, please check your inbox for further instructions.');
-
         log_activity('Register', $user->fullname . ' registered.');
-
         return redirect(route('login'));
     }
-
     /**
      * User click on register confirmation link in mail
      *
@@ -96,22 +83,17 @@ class RegisterController extends AuthController
                 $user->confirmation_token = null;
                 $user->confirmed_at = Carbon::now();
                 $user->update();
-
                 // notify
                 $user->notify(new UserConfirmedAccount());
-
                 alert()->success('Success',
                     '<br/>Congratulations, your account has been activated. Please Sign In below.');
-
                 log_activity('User Confirmed', $user->fullname . ' confirmed their account', $user);
             }
         }
         else {
             alert()->error('Whoops!', 'Sorry, the token does not exist.');
-
             log_activity('User Confirmed', 'INVALID TOKEN');
         }
-
         return redirect(route('login'));
     }
 }

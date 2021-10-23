@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Titan\Models\TitanWebsiteNavigation;
+//use Titan\Models\TitanWebsiteNavigation;
+use Bpocallaghan\Titan\Models\TitanWebsiteNavigation;
 
 class NavigationWebsite extends TitanWebsiteNavigation
 {

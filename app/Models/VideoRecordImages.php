@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use Titan\Models\Traits\ModifyBy;
+use Bpocallaghan\Titan\Models\Traits\ModifyBy;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Bpocallaghan\Sluggable\HasSlug;
 use Bpocallaghan\Sluggable\SlugOptions;
-use Titan\Models\TitanCMSModel;
-use Titan\Models\Traits\ActiveTrait;
+use Bpocallaghan\Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Models\Traits\ActiveTrait;
 
 /**
  * Class VideoRecordImages
@@ -42,6 +42,7 @@ class VideoRecordImages extends TitanCMSModel
     {
         return $this->morphTo();
     }
+
 
     /**
      * Get the thumb path (append -tn at the end)
@@ -93,11 +94,16 @@ class VideoRecordImages extends TitanCMSModel
     /**
      * Get the url for the file name (specify thumb, default, original)
      * @param $name
+     * @param $apy_key
      * @return string
      */
     public function urlForName($name)
     {
-        return config('app.url') . '/uploads/videos/' . $name;
+        (isset($name) ? $apy_key = preg_split('/[\s_\-]+/', $name) : $this->videorecordable->apy_key);
+
+        $apy_key = preg_split('/[\s_\-]+/', str_replace(' ', '', $this->name))[0];
+        
+        return config('app.url') . '/uploads/videos/'.$apy_key.'/'.$name;
     }
 
     /**

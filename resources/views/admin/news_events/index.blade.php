@@ -11,6 +11,7 @@
                     </h3>
                 </div>
 
+
                 <div class="box-body">
 
                     @include('admin.partials.info')
@@ -53,4 +54,5 @@
             </div>
         </div>
     </div>
+
 @endsection

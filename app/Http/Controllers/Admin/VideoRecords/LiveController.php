@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin\VideoRecords;
 
+use Carbon\Carbon;
 use Redirect;
 
 use App\Models\VideoRecordsCategory;
+use App\Models\PlayerSettings;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Admin\AdminController;
@@ -15,6 +17,7 @@ use App\User;
 
 class LiveController extends AdminController
 {
+
     /**
     * Display a listing of streams.
     *
@@ -23,7 +26,22 @@ class LiveController extends AdminController
     public function index()
     {
         save_resource_url();
-        $items = Stream::get();
+
+
+        $rolesArray = \Auth::user()->roles()->get()->toArray();
+        foreach ($rolesArray as $key => $value) {
+          $roles[] = $value['name'];
+        }
+
+
+        if (in_array('Admin', $roles)) {
+          $items = Stream::get();
+        }else{
+          $items = Stream::where('created_by', \Auth::user()->id)->get();
+        }
+
+
+
 
         return $this->view('video_records.stream.livestream')->with('items', $items);
     }
@@ -35,8 +53,9 @@ class LiveController extends AdminController
      */
     public function create()
     {
+        $player_settings = PlayerSettings::getAllList();
         $categories = VideoRecordsCategory::getAllList();
-        return $this->view('video_records.stream.create_edit', compact('categories'));
+        return $this->view('video_records.stream.create_edit', compact('categories'))->with('player_settings', $player_settings);
     }
 
     /**
@@ -66,9 +85,13 @@ class LiveController extends AdminController
     public function edit(Stream $item, Request $request, $id)
     {
         $categories = VideoRecordsCategory::getAllList();
-        $item = Stream::where('id', $id)->get();
-        foreach ($item as $item);
-        return $this->view('video_records.stream.create_edit', compact('categories'))->with('item', $item);
+
+        $player_settings = PlayerSettings::getAllList();
+        $item = Stream::where('id', $id)->first();
+
+        return $this->view('video_records.stream.create_edit', compact('categories'))
+            ->with('item', $item)
+            ->with('player_settings', $player_settings);
     }
 
     /**
@@ -122,8 +145,6 @@ class LiveController extends AdminController
       <link href='https://".$_SERVER['SERVER_NAME']."/css/vjs-custom-skin.css' rel='stylesheet'>
       <script type='text/javascript' src='https://".$_SERVER['SERVER_NAME']."/js/video.js'></script>
       <script type='text/javascript'  src='https://".$_SERVER['SERVER_NAME']."/js/videojs-contrib-hls.min.js'></script>
-      <script type='text/javascript'  src='https://".$_SERVER['SERVER_NAME']."/js/videojs.watermark.js'></script>
-      <script src='https://".$_SERVER['SERVER_NAME']."/js/videojs.ga.min.js'></script>
 
       <video id='videojs-contrib-hls-player' class='video-js vjs-default-skin' width='720' controls>
         <source src='https://".$_SERVER['SERVER_NAME']."/live/".$slug.".m3u8' type='application/x-mpegURL'>
@@ -136,20 +157,44 @@ class LiveController extends AdminController
           var videoPoster = $('#videoPoster').val();
           var videoSource = $('#videoSource').val();
           var player = videojs('videojs-contrib-hls-player');
-          player.src({
+          player.tech(true).src({
               src: videoSource,
               type: 'application/x-mpegURL',
               aspectRatio:'720:400',
               fluid: true
           });
           player.play();
-      });
-      </script>";
+        	function myTimer() {
+            	$.get('/bg/rss/pressclub', function(data) {
+        	    	var xml = $(data);
+        		    xml.find('item').each(function() {
+        		        var this = $(this),
+        		            item = {
+        		                title: this.find('title').text(),
+        		                guid:  this.find('guid').text()
+        		        }
+        		        var title = item['title'].replace(']]>', '');
+
+        		        var parts = window.location.href.split('/');
+        				var pageId = parts[parts.length - 2];
+        				if (pageId == item['guid']) {
+        					$.post( 'https://".$_SERVER['SERVER_NAME']."/api/stats/insert', {
+        		        		title: title.replace('<![CDATA[', ''),
+        		        		guid:  item['guid']
+        		        	});
+        				}else{
+        					$.post( 'https://".$_SERVER['SERVER_NAME']."/api/stats/insert', {
+        		        		title: '',
+        		        		guid:  ''
+        		        	});
+        				}
+        		    });
+        		});
+        	}
+        	var myVar = setInterval(myTimer, 15000);
+        });
+        </script>";
       return $embed_string;
-
-
-
-
 
       // $fileString = $_SERVER['DOCUMENT_ROOT']."/uploads/embed_codes/".$key.".txt";
       // $handle = fopen($fileString, "w");

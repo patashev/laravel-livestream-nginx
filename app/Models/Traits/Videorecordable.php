@@ -35,4 +35,6 @@ trait Videorecordable
     {
         return $this->morphMany(VideoRecordImages::class, 'video_record');
     }
+
+    
 }

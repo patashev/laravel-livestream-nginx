@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin\VideoRecords;
 
 use App\Models\VideoRecordsCategory;
-use App\Http\Requests;
 use App\Models\VideoRecords;
+use App\Models\PlayerSettings;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminController;
 
@@ -24,7 +25,8 @@ class VideoRecordsCategoriesController extends AdminController
 	 */
 	public function create()
 	{
-		return $this->view('video_records.categories.create_edit');
+		$player_settings = PlayerSettings::getAllLists();
+		return $this->view('video_records.categories.create_edit')->with('player_settings', $player_settings);
 	}
 
 	/**
@@ -55,9 +57,12 @@ class VideoRecordsCategoriesController extends AdminController
      */
     public function edit(VideoRecordsCategory $videoRecordsCategory, Request $request, $id)
 	{
+				$player_settings = PlayerSettings::getAllLists();
         $item = $videoRecordsCategory->where('id', $id)->get();
         foreach ($item as $item);
-        return $this->view('video_records.categories.create_edit')->with('item', $item);
+        return $this->view('video_records.categories.create_edit')
+					->with('player_settings', $player_settings)
+					->with('item', $item);
 	}
 
 	/**
@@ -70,6 +75,7 @@ class VideoRecordsCategoriesController extends AdminController
 	{
 		$videoRecordsCategory = VideoRecordsCategory::find($id);
 		$attributes = $request->validate(VideoRecordsCategory::$rules, VideoRecordsCategory::$messages);
+		$attributes['player_settings_id'] = $request['player_settings'][0];
 		$this->updateEntry($videoRecordsCategory, $attributes);
 		return redirect_to_resource();
 	}

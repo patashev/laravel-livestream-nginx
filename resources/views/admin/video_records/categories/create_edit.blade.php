@@ -11,14 +11,13 @@
                     </h3>
                 </div>
 
-                <div class="box-body no-padding">
+                <div class="box-body">
 
                     @include('admin.partials.info')
 
                     <form method="POST" action="{{$selectedNavigation->url . (isset($item)? "/{$item->id}" : '')}}" accept-charset="UTF-8">
                         <input name="_token" type="hidden" value="{{ csrf_token() }}">
                         <input name="_method" type="hidden" value="{{isset($item)? 'PUT':'POST'}}">
-
                         <fieldset>
                             <div class="row">
                                 <div class="col-md-12">
@@ -37,10 +36,14 @@
                                         <input type="text" class="form-control" id="title_bg" name="title_bg" placeholder="Please insert the Category" value="{{ ($errors && $errors->any()? old('title_bg') : (isset($item)? $item->title_bg : '')) }}">
                                         {!! form_error_message('title_en', $errors) !!}
                                     </div>
+                                    <div class="form-group {{ form_error_class('player_settings', $errors) }}">
+                                        <label for="player_settings">Player Settings</label>
+                                        {!! form_select('player_settings[]', $player_settings, ($errors && $errors->any()? old('player_settings') : (isset($item)? $item->player_settings->pluck('id')->all() : '')), ['class' => 'select2 form-control', 'multiple']) !!}
+                                        {!! form_error_message('player_settings', $errors) !!}
+                                    </div>
                                 </div>
                             </div>
                         </fieldset>
-
                         @include('admin.partials.form_footer')
                     </form>
                 </div>

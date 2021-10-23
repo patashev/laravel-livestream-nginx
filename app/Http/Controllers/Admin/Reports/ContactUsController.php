@@ -7,10 +7,10 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\FeedbackContactUs;
 use Yajra\DataTables\Facades\DataTables;
-use Titan\Controllers\TitanAdminController;
+use App\Http\Controllers\Admin\AdminController;
 use Titan\Controllers\Traits\ReportChartTable;
 
-class ContactUsController extends TitanAdminController
+class ContactUsController extends AdminController
 {
     use ReportChartTable;
 
@@ -20,7 +20,9 @@ class ContactUsController extends TitanAdminController
      */
     public function index()
     {
-        return $this->view('reports.contactus');
+      save_resource_url();
+
+      return $this->view('reports.contactus');
     }
 
     /**

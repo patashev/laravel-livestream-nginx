@@ -36,34 +36,51 @@ Route::post('/language/', array('before' => 'csrf', 'as' => 'language-chooser', 
 |------------------------------------------
 */
 
-Route::redirect('/home', '/');
+Route::redirect('/', '/admin');
 
-Route::group( ['middleware' =>\App\Http\Middleware\Localization::class, 'namespace' => 'Website' ],function(){
-  Route::get('/', 'HomeController@index')->name('home');
-  Route::get('/contact-us', 'ContactUsController@index')->name('contactus');
-  Route::post('/contact-us/submit', 'ContactUsController@feedback')->name('feedback');
+##Route::redirect('/home', '/');
 
-  // gallery
-  Route::get('/gallery', 'GalleryController@index')->name('imagegallery');
-  Route::get('/gallery/{albumSlug}', 'GalleryController@showAlbum')->name('imagealbum');
 
-  // videos
-  //Route::group(['prefix' => 'videos'], function(){
-    Route::get('/videos', 'VideoController@index')->name('vid');
-    Route::get('/videos/{category_id}', 'VideoController@index')->name('by_video_categories');
-  //});
-  #Route::get('/videos/getdata', 'VideoController@getVideos')->name('getVideos');
-  Route::get('/videos/{id}', 'VideoController@showAlbum')->name('showvideo');
 
-  // blog / articles
-  Route::get('/blog', 'BlogController@index')->name('blog');
-  Route::get('/blog/{articleSlug}', 'BlogController@show')->name('blogshow');
+/*
+|------------------------------------------
+| Frontend
+|------------------------------------------
+*/
 
-  // news and events
-  Route::get('/news-and-events', 'NewsEventController@index')->name('news');
-  Route::get('/news-and-events/{newsSlug}', 'NewsEventController@show')->name('newsshow');
-});
 
+// Route::group( ['middleware' =>\App\Http\Middleware\Localization::class, 'namespace' => 'Website' ],function(){
+//   Route::get('/', 'HomeController@index')->name('home');
+//   Route::get('/contact-us', 'ContactUsController@index')->name('contactus');
+//   Route::post('/contact-us/submit', 'ContactUsController@feedback')->name('feedback');
+
+//   // gallery
+//   Route::get('/gallery', 'GalleryController@index')->name('imagegallery');
+//   Route::get('/gallery/{albumSlug}', 'GalleryController@showAlbum')->name('imagealbum');
+
+//   // videos
+//   //Route::group(['prefix' => 'videos'], function(){
+//     Route::get('/videos', 'VideoController@index')->name('vid');
+//     Route::get('/videos/category_id/{category_id}', 'VideoController@index')->name('by_video_categories');
+//   //});
+//   #Route::get('/videos/getdata', 'VideoController@getVideos')->name('getVideos');
+//   Route::get('/videos/video_entry/{id}', 'VideoController@showAlbum')->name('showvideo');
+
+//   // blog / articles
+//   Route::get('/blog', 'BlogController@index')->name('blog');
+//   Route::get('/blog/{articleSlug}', 'BlogController@show')->name('blogshow');
+
+//   // news and events
+//   Route::get('/news-and-events', 'NewsEventController@index')->name('news');
+//   Route::get('/news-and-events/{newsSlug}', 'NewsEventController@show')->name('newsshow');
+// });
+
+
+/*
+|------------------------------------------
+| Frontend
+|------------------------------------------
+*/
 
 // Route::group([ 'namespace' => 'Website'], function () {
 //     Route::get('/', 'HomeController@index');
@@ -114,11 +131,11 @@ Route::group(['prefix' => 'auth', 'namespace' => 'Auth'], function () {
         Route::get('login', 'LoginController@showLoginForm')->name('login');
         Route::post('login', 'LoginController@login');
 
-        // registration
-        Route::get('register/{token?}', 'RegisterController@showRegistrationForm')
-            ->name('register');
-        Route::post('register', 'RegisterController@register');
-        Route::get('register/confirm/{token}', 'RegisterController@confirmAccount');
+        // // registration
+        // Route::get('register/{token?}', 'RegisterController@showRegistrationForm')
+        //      ->name('register');
+        // Route::post('register', 'RegisterController@register');
+        // Route::get('register/confirm/{token}', 'RegisterController@confirmAccount');
 
         // password reset
         Route::get('password/forgot', 'ForgotPasswordController@showLinkRequestForm')
@@ -172,11 +189,20 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
 
         // analytics
         Route::group(['prefix' => 'analytics'], function () {
-            Route::get('/', 'AnalyticsController@summary');
+            Route::get('/summary', 'AnalyticsController@summary');
             Route::get('/devices', 'AnalyticsController@devices');
             Route::get('/visits-and-referrals', 'AnalyticsController@visitsReferrals');
             Route::get('/interests', 'AnalyticsController@interests');
             Route::get('/demographics', 'AnalyticsController@demographics');
+        });
+
+
+
+        // stats
+        Route::group(['prefix' => 'stats',  'namespace' => 'Stats'], function () {
+            Route::get('/ip2location', 'Ip2locationController@index');
+            Route::get('/ip2location/getStats', 'Ip2locationController@returnedRowedIpToLocations')->name('stats_datatable');
+            Route::get('/ip2location/getRinvex', 'Ip2locationController@rinvexIncludeStats')->name('stats_rinvex');
         });
 
         // history
@@ -186,7 +212,7 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             Route::get('/website', 'HistoryController@website');
         });
 
-        Route::group(['prefix' => 'general'], function () {
+        Route::group(['prefix' => 'settings'], function () {
             Route::resource('tags', 'TagsController');
 
             Route::get('/banners/order', 'BannersOrderController@index');
@@ -195,6 +221,7 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
 
             Route::resource('clients', 'ClientsController');
             Route::post('clients/password/email', 'ClientsController@sendResetLinkEmail');
+            Route::post('clients/resend/{id}','ClientsController@reSendActivationEmail');
         });
 
         // Sidebars
@@ -243,33 +270,69 @@ Route::group(['middleware' => ['auth', 'auth.admin'], 'prefix' => 'admin', 'name
             Route::resource('categories', 'CategoriesController');
         });
 
-
         // video_records
         Route::group(['prefix' => 'video-records', 'namespace' => 'VideoRecords'], function () {
+
+            Route::resource('player-settings', 'PlayerSettingsController', ['except' => 'show']);
+            Route::get('show_modal/{id}', 'PlayerSettingsController@show')->name('datatable/showPlayerSettings');
+
+
             Route::resource('videos', 'VideoRecordsController', ['except' => 'show']);
             Route::get('datatable/getdata', 'VideoRecordsController@getVideos')->name('datatable/getVideos');
+            Route::get('datatable/getVideoDetailes/{id}', 'VideoRecordsController@getVideoDetailes')->name('datatable/getVideoDetailes');
+            Route::get('datatable/getvideo/{id}', 'VideoRecordsController@getVideoByid')->name('datatable/getVideoByid');
 
             Route::get('datatable/massDelete', 'VideoRecordsController@massDelete')->name('datatable.massDelete');
 
+            Route::get('datatable/massAddToPlaylist', 'VideoRecordsController@massAddToPlaylist')->name('datatable.massAddToPlaylist');
             Route::get('datatable/updateThmbnailWithCover', 'VideoRecordsController@updateThmbnailWithCover')->name('datatable/updateThmbnailWithCover');
-
             Route::resource('video-record-categories', 'VideoRecordsCategoriesController');
-
             Route::resource('video-record-images', 'VideoRecordImagesController', ['except' => 'show']);
             Route::get('video-record-images/datatable/getdata', 'VideoRecordImagesController@getVideoImages')->name('datatable/getVideoImages');
+
+            Route::group(['prefix' => 'video-record-playlists'], function () {
+                Route::resource('/', 'VideoRecordPlaylists');
+                Route::get('show_modal/{id}', 'VideoRecordPlaylists@show')->name('datatable/showPlaylist');
+                Route::get('mass_delete', 'VideoRecordPlaylists@massRemoveFromPlaylist')->name('video-record-playlists.massRemoveFromPlaylist');
+            });
+
+
+
+              //Route::get('/{id}', 'PlayerSettingsController@show');
+              //  Route::get('/{id}/edit', 'PlayerSettingsController@edit');
+               //resource($name, $controller, array $options = [])
+
+
+
 
 
             Route::get('/video-record-images/{videoRecord}', 'VideoRecordImagesController@showNewsPhotos');
             Route::post('/video-record-images/upload', 'VideoRecordImagesController@uploadPhotos');
             Route::delete('/{id}', 'PhotosController@destroy');
             Route::post('/video-record-images/{videoRecord}/cover', 'VideoRecordImagesController@updatePhotoCover');
-            Route::resource('/live-stream', 'LiveController', ['except' => 'show']);
+
+            Route::resource('/live-stream', 'LiveController', ['except' => ['show','update']]);
+
+
+
+
+
             Route::get('/live-stream/getipstats', 'LiveController@getipstats');
-            #Route::get('/live-stream/player/{slug}', 'PlayerController@index');
             Route::get('/live-stream/player/{id}/saveAsTxt/{slug}/key/{key}', 'LiveController@saveAsTxt');
             Route::post('/archive/{id}/time/{time}', 'VideoRecordsController@archive');
 
         });
+
+
+      // gallery / photos
+      Route::group(['prefix' => 'images', 'namespace' => 'Images'], function () {
+        Route::get('/category', 'ImageCategoryController@index');
+        Route::get('/category/{id}/edit', 'ImageCategoryController@edit')->name('editImageCategory');
+
+        Route::get('/photos', 'ImageController@index');
+        Route::get('/images/getImages', 'ImageController@returnedRowedImages')->name('archive_images');
+        Route::get('/images/getCategories', 'ImageCategoryController@returnedTree')->name('returnedTree');
+      });
 
 
 
@@ -368,3 +431,6 @@ Route::group(['prefix' => 'ajax', 'namespace' => 'Ajax', 'middleware' => 'web'],
 Route::group(['namespace' => 'Website'], function () {
     Route::get('{slug1}/{slug2?}/{slug3?}', 'PagesController@index');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

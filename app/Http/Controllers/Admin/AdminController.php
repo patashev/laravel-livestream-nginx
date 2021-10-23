@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
-use Titan\Controllers\TitanAdminController;
+// use Titan\Controllers\TitanAdminController;
+use Bpocallaghan\Titan\Http\Controllers\Admin\TitanAdminController;
+use DB;
 
 class AdminController extends TitanAdminController
 {
@@ -33,5 +35,12 @@ class AdminController extends TitanAdminController
         }
 
         return $filename;
+    }
+
+
+    public function getIPLocation($ip_address)
+    {
+        $result = DB::select('SELECT * FROM ip2locations WHERE inet_to_bigint(?) <= ip_to ORDER BY ip_from ASC LIMIT 1', array($ip_address));
+        return $result;
     }
 }

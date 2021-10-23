@@ -14,9 +14,12 @@ use App\Models\VideoRecordsCategory;
 use App\Models\Stream;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
 
 class VideoRecordCommands extends Command
 {
+
+    use Notifiable;
     /**
      * The name and signature of the console command.
      *
@@ -105,40 +108,62 @@ class VideoRecordCommands extends Command
     {
         $slug = $this->argument('slug');
         $dirname = $this->argument('dirname');
+        $newdir = $dirname.'/'.$slug;
+        $shortDate = date('dmY');
         $basename = $this->argument('basename');
 
         if($this->option('stop'))
         {
-            exec("rm ".$_ENV['VIDEO_LIVE_PATH']."/${slug}.running");
-            sleep(5);
-            $files = explode("\n", shell_exec("find ".$_ENV['VIDEO_LIVE_PATH']."/'${slug}.m3u8' | grep ${slug}"));
-            $logFile = fopen($_ENV['VIDEO_LIVE_PATH']."/test.log","w");
-                foreach ($files as $filename) {
-                    fwrite($logFile,$filename.'\n');
-                    if(!empty($filename))
-                    {
-                        exec("sh -c \"echo '#EXT-X-ENDLIST' >> " . $filename . "\n");
-                    }
-                    exec("rm -f ".$_ENV['VIDEO_LIVE_PATH']."/'${slug}.m3u8'");
+          if (is_dir($newdir)){
+             if (is_dir($newdir.'/'.$shortDate)) {
+               $newdir = $newdir.'/'.$shortDate;
+             }
+               else {
+                 mkdir($newdir.'/'.$shortDate);
+                 $newdir = $newdir.'/'.$shortDate;
+               }
+          }else{
+            // mkdir($newdir);
+            // mkdir($newdir.'/'.$shortDate);
+          }
 
-                    exec("find ".$_ENV['VIDEO_LIVE_PATH']."/${slug}* -type d", $folders);
-                    foreach ($folders as $folder => $value) {
-                        exec("rm -rf ".$value);
-                    }
-                }
-                fwrite($logFile, $txt = $slug."---".$dirname."/".$basename.".flv");
-                fclose($logFile);
 
-                exec($_ENV['VIDEO_FFMPEG']." -i ${dirname}/${basename}.flv -vcodec copy -acodec copy -metadata title='${slug}' -crf 20 ${dirname}/${basename}.mp4 2>> ".$_ENV['VIDEO_FFMPEG_LOGS_DIR']."/ffmpeg-convert.log & wait 5");
-                exec($_ENV['VIDEO_FFMPEG']." -i ${dirname}/${basename}.mp4 -updatefirst 1 -f image2 -vcodec mjpeg -vframes 1 -s 853x480 -y ".$_ENV['VIDEO_FFMPEG_IMAGE_DIR']."/video_${basename}.png >> ".$_ENV['VIDEO_FFMPEG_LOGS_DIR']."/ffmpeg-screenshots.log");
-                exec("rm -f ${dirname}/${basename}.flv & wait 5");
+          exec("rm ".$_ENV['VIDEO_LIVE_PATH']."/${slug}.running");
+          sleep(5);
+          $files = explode("\n", shell_exec("find ".$_ENV['VIDEO_LIVE_PATH']."/'${slug}.m3u8' | grep ${slug}"));
+          $logFile = fopen($_ENV['VIDEO_LIVE_PATH']."/".$slug.".log","w");
+              foreach ($files as $filename) {
+                  fwrite($logFile,$filename.'\n');
+                  if(!empty($filename))
+                  {
+                      exec("sh -c \"echo '#EXT-X-ENDLIST' >> " . $filename . "\n");
+                  }
+                  exec("rm -f ".$_ENV['VIDEO_LIVE_PATH']."/'${slug}.m3u8'");
 
-                $fileName = $dirname."/".$basename.".mp4";
-                $idd = fopen(storage_path('app/'.$slug.".handle"), 'r');
-                $entryId = fread($idd,filesize(storage_path('app/'.$slug.".handle")));
-                $imageVideoFile = "video_".$basename.".png";
-                $this->createImageEntryForVideo($entryId, $slug, $imageVideoFile);
-                $this->updateVideoEntry($slug, $entryId, $fileName, $dirname, $basename.".mp4");
+                  exec("find ".$_ENV['VIDEO_LIVE_PATH']."/${slug}* -type d", $folders);
+                  foreach ($folders as $folder => $value) {
+                      exec("rm -rf ".$value);
+                  }
+              }
+              fwrite($logFile, $txt = $slug."---".$dirname."/".$basename.".flv");
+              fclose($logFile);
+
+              exec($_ENV['VIDEO_FFMPEG']." -i ${dirname}/${basename}.flv -vcodec copy -acodec copy -metadata title='${slug}' -crf 20 ${newdir}/${shortDate}/${basename}.mp4 2>> ".$_ENV['VIDEO_FFMPEG_LOGS_DIR']."/video_${basename}-ffmpeg-convert.log & wait 5");
+              exec($_ENV['VIDEO_FFMPEG']." -i /home/adm1n/HLS/rec/${slug}/${shortDate}/${basename}.mp4 -updatefirst 1 -f image2 -vcodec mjpeg -vframes 1 -s 853x480 -y ".$_ENV['VIDEO_FFMPEG_IMAGE_DIR']."/video_${basename}.png >> ".$_ENV['VIDEO_FFMPEG_LOGS_DIR']."/video_${basename}-ffmpeg-screenshots.log");
+              exec("rm -f ${dirname}/${basename}.flv & wait 5");
+
+              $fileName = $newdir."/".$basename.".mp4";
+              $idd = fopen(storage_path('app/'.$slug.".handle"), 'r');
+              $entryId = fread($idd,filesize(storage_path('app/'.$slug.".handle")));
+              $imageVideoFile = "video_".$basename.".png";
+              $this->createImageEntryForVideo($entryId, $slug, $imageVideoFile);
+
+              exec("echo '".$fileName."' > /home/adm1n/99999999 ");
+
+              log_activity('Стриим', $entryId . ' стартира.');
+
+
+              $this->updateVideoEntry($slug, $entryId, $fileName, $newdir, $basename.".mp4");
         }else{
             exec("touch ".$_ENV['VIDEO_LIVE_PATH']."/${slug}.running");
             $files = explode("\n", shell_exec("find ".$_ENV['VIDEO_LIVE_PATH']."/${slug} -name '${slug}.m3u8' | grep ${slug}"));
@@ -214,6 +239,9 @@ class VideoRecordCommands extends Command
         $attributes['created_by'] = $video->created_by;
         $attributes['updated_by'] = $video->created_by;
         $image = VideoRecordImages::create($attributes);
+
+
+
         return $image;
     }
 

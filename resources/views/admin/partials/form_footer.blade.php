@@ -1,12 +1,12 @@
 <div class="form-footer">
     @if(isset($submit) == false || $submit == true)
         <button class="btn btn-labeled btn-primary btn-submit">
-            <span class="btn-label"><i class="fa fa-fw fa-save"></i></span>Submit
+            <span class="btn-label"><i class="fa fa-fw fa-save"></i></span>Пусни
         </button>
     @endif
 
     <a onclick="GoBackWithRefresh()" class="btn btn-labeled btn-default">
-        <span class="btn-label"><i class="fa fa-fw fa-chevron-left"></i></span>Back
+        <span class="btn-label"><i class="fa fa-fw fa-chevron-left"></i></span>Назад
     </a>
 </div>
 

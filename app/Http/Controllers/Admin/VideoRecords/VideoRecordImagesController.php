@@ -18,7 +18,7 @@ use App\Models\VideoRecordImages;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use Illuminate\Http\UploadedFile;
-use Titan\Models\Traits\ImageThumb;
+use Bpocallaghan\Titan\Models\Traits\ImageThumb;
 use App\Http\Controllers\Admin\AdminController;
 use DataTables;
 
@@ -62,7 +62,6 @@ class VideoRecordImagesController extends AdminController
             $endItem[] = array(
                   'id' => $item->id,
                   'name' => ($item->is_cover == true ? $item->name."(cover)" : $item->name),
-                  'Category' => $item->category,
                   'Image' =>$cover,
                   'created_at' =>  $item->created_at->toDateTimeString(),
                   'action' => $edit

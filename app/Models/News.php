@@ -6,8 +6,10 @@ use App\Models\Traits\Photoable;
 use App\User;
 use Bpocallaghan\Sluggable\HasSlug;
 use Bpocallaghan\Sluggable\SlugOptions;
-use Titan\Models\TitanCMSModel;
-use Titan\Models\Traits\ActiveTrait;
+//use Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Models\Traits\ActiveTrait;
+//use Titan\Models\Traits\ActiveTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**

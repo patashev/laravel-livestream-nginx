@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use Titan\Models\TitanCMSModel;
+#use Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Models\TitanCMSModel;
+use Bpocallaghan\Titan\Http\Controllers\Admin\TitanAdminController;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Role extends TitanCMSModel
 {

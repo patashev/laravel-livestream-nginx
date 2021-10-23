@@ -140,18 +140,18 @@ class StreamController extends BaseController
                     }
                     catch(\Facebook\Exceptions\FacebookResponseException $e)
                     {
-                        return redirect('/')->withErrors(['err' => 'Could not update Facebook Live title or description. You will need to manually update it through Facebook.']);
+                        return redirect('/')->withErrors(['err' => 'Неуспешно обновяване на заглавието или дискрипцията във Facebook Live. Ще трябва да го редактирате ръчно през Facebook.']);
                     }
                     catch(\Facebook\Exceptions\FacebookSDKException $e)
                     {
-                        return redirect('/')->withErrors(['err' => 'Could not update Facebook Live title or description. You will need to manually update it through Facebook.']);
+                        return redirect('/')->withErrors(['err' => 'Неуспешно обновяване на заглавието или дискрипцията във Facebook Live. Ще трябва да го редактирате ръчно през Facebook.']);
                     }
                 }
                 return redirect('/');
             }
             else
             {
-                return redirect()->back()->withErrors(['err' => 'Could not save updates due to a server-side issue.']);
+                return redirect()->back()->withErrors(['err' => 'Проблем в сървара.']);
             }
         }
         if($request->isMethod('get'))

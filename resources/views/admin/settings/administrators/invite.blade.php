@@ -56,7 +56,9 @@
                         @foreach ($items as $user)
                             <tr>
                                 <td>{{ $user->email }}</td>
-                                <td>{{ $user->invitedBy->fullname }}</td>
+                                @if ($user->invitedBy)
+                                  <td>{{ $user->invitedBy->fullname }}</td>
+                                @endif
                                 <td>
                                     {{ $user->created_at }}
                                     <span class="label label-{{ $user->claimed_at ? 'success':'warning' }}">

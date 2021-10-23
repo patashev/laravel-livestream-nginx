@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 
-
 @section('content')
     <div class="row">
         <div class="col-xs-12">
@@ -23,7 +22,6 @@
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Category</th>
                             <th>Image</th>
                             <th>Created</th>
                             <th>Action</th>
@@ -60,10 +58,6 @@
                 {
                   data: 'name',
                   name: 'name'
-                },
-                {
-                  name: 'Category',
-                  data: 'Category',
                 },
                 {
                   name: 'Image',

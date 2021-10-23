@@ -102,7 +102,7 @@ class Kaltura extends Command
         $attributes['apy_key'] = $slug;
         $attributes['title'] = $content[0]['title'];
         $attributes['description'] = $content[0]['description'];
-        $attributes['category_id'] = 10;
+        $attributes['category_id'] = 1;
         $attributes['vcodec_name'] = $content[0]['vcodec_name'];
         $attributes['vcodec_long_name'] = $content[0]['vcodec_long_name'];
         $attributes['width'] = $content[0]['width'];
@@ -122,8 +122,8 @@ class Kaltura extends Command
         $attributes['status']  = 1;
         // $attributes['active_from'] = $now;
         // $attributes['active_to'] = $nextWeek;
-        $attributes['created_by'] = 5;
-        $attributes['updated_by'] = 5;
+        $attributes['created_by'] = 1;
+        $attributes['updated_by'] = 1;
 
         $imageVideoFile = 'video_'.$content[0]['entry_id'].".png";
         VideoRecords::create($attributes);
@@ -177,7 +177,7 @@ class Kaltura extends Command
         }
     }
 
-//https://www.clips4sale.com/studio/95377/miss-florance
+
 
     /**
      * Execute the console command.
@@ -186,8 +186,10 @@ class Kaltura extends Command
      */
     public function handle()
     {
+
       $slug = $this->argument('slug');
       $config = new KalturaConfiguration();
+      $config->serviceUrl = 'http://video2.bta.bg/';
       $client = new KalturaClient($config);
       $error = "";
       try
@@ -208,13 +210,19 @@ class Kaltura extends Command
         $filter = new KalturaMediaEntryFilter();
         $filter->statusEqual = KalturaEntryStatus::READY;
         $filter->mediaTypeEqual = KalturaMediaType::VIDEO;
-        $filter->categoriesMatchOr = 'Stara Zagora';
+        $filter->categoriesMatchOr = 'Sofia';
         $filter->orderBy = "+createdAt";
+        $filter->createdAtGreaterThanOrEqual = "1606391783";
         $pager = new KalturaFilterPager();
-        $pager->pageSize = 250;
+        $pager->pageSize = 1;
         $pager->pageIndex = 1;
         try {
-          $response = $client->media->listAction($filter, $pager);
+           $response = $client->media->listAction($filter, $pager);
+           //$response = $client->media->count($filter);
+           // $entryId = '0_q1njow7y';
+           // $version = null;
+           // $response = $client->media->get($entryId, $version);
+           //dd($response);
         }
         catch (Exception $ex){
           $error = $ex->getMessage();
@@ -222,10 +230,11 @@ class Kaltura extends Command
         $count = $response->totalCount;
       }
 
-
+//      print $count."\n";
 
       foreach ($response->objects as $mediaEntry) {
-        // if ($mediaEntry->id !== '0_rnc9vfgh' &&
+         if (
+           //$mediaEntry->id !== '0_rnc9vfgh' &&
         //      $mediaEntry->id !== '0_dhxthn5x' &&
         //      $mediaEntry->id !== '0_vhpjii55' &&
         //      $mediaEntry->id !== '0_wggufgf8' &&
@@ -249,13 +258,10 @@ class Kaltura extends Command
         //     $mediaEntry->id !== '0_10a83l2o' &&
         //     $mediaEntry->id !== '0_me4bru93' &&
         //     $mediaEntry->id !== '0_fy59hsnr' &&
-        //     $mediaEntry->id !== '0_8u4gear2'){
+             $mediaEntry->id !== '0_3thx0zd1'){
                 $entry[] = array('entry' => $mediaEntry );
-        //}
+        }
       }
-
-
-
 
       foreach ($entry as $key) {
         $x = new \stdClass();

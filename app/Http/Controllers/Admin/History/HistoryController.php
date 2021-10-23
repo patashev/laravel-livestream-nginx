@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Admin\History;
 use App\Http\Requests;
 use App\Models\LogActivity;
 use App\Models\LogAdminActivity;
-use Titan\Controllers\TitanAdminController;
+//use Titan\Controllers\TitanAdminController;
+use Bpocallaghan\Titan\Http\Controllers\Admin\TitanAdminController;
 
 class HistoryController extends TitanAdminController
 {
     public function website()
     {
-        $actions = LogActivity::getLatest();
+        $actions = LogActivity::get();
 
         return $this->view('history.website', compact('actions'));
     }

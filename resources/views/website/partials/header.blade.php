@@ -15,13 +15,13 @@
             {{--@endforeach--}}
 
             @if(!\Auth::check())
-                <a href="#" class="btn btn-outline-primary" data-icon="fa-sign-in" data-toggle="modal" data-target="#modal-login">
+                {{-- <a href="#" class="btn btn-outline-primary" data-icon="fa-sign-in" data-toggle="modal" data-target="#modal-login">
                     <i class="fa fa-sign-in"></i>
                     @lang('auth.login')
-                </a>
-                <a href="/auth/register" class="btn btn-outline-secondary" data-icon="fa-edit">
+                </a> --}}
+                {{-- <a href="/auth/register" class="btn btn-outline-secondary" data-icon="fa-edit">
                     @lang('auth.register')
-                </a>
+                </a> --}}
             @else
                 @if(\Auth::check() && user()->hasRole('admin'))
                    <a href="/admin" class="btn btn-link"><i class="fa fa-user-secret"></i> Admin</a>

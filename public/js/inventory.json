@@ -1,0 +1,9 @@
+[
+  {
+    "src": "https://github.com/videojs/videojs-contrib-ads/blob/master/examples/basic-ad-plugin/kitteh.mp4",
+    "type": "video/mp4"
+  },{
+    "src": "https://github.com/videojs/videojs-contrib-ads/blob/master/examples/basic-ad-plugin/superclip.mp4",
+    "type": "video/mp4"
+  }
+]

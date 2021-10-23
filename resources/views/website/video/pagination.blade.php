@@ -4,7 +4,7 @@
             <div class="news">
 
                 <figure>
-                    <a href="/videos/{{ $item->id }}" title="{{ $item->cover_photo->title }}">
+                    <a href="/videos/video_entry/{{ $item->id }}" title="{{ $item->cover_photo->title }}">
                         <img src="{{ $item->cover_photo->thumbUrl }}">
                     </a>
                 </figure>

@@ -8,7 +8,7 @@ use App\Models\NavigationWebsite;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use Titan\Controllers\TitanAdminController;
+use Bpocallaghan\Titan\Http\Controllers\Admin\TitanAdminController;
 
 class OrderController extends TitanAdminController
 {
