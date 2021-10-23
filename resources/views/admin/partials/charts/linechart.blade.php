@@ -15,7 +15,6 @@
             var chart;
 
             initToolbarDateRange('#{{ $id }} .daterange', updateChart);
-
             /**
              * Get the chart's data
              * @param view

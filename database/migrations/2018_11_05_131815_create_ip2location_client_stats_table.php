@@ -14,7 +14,7 @@ class CreateIp2locationClientStatsTable extends Migration
     public function up()
     {
         Schema::create('ip2location_client_stats', function (Blueprint $table) {
-            $table->increments('id');
+            $table->increments('id')->unique()->index();
             $table->string('stream_name');
             $table->string('title', 512);
             $table->bigInteger('ip_number');
@@ -24,8 +24,13 @@ class CreateIp2locationClientStatsTable extends Migration
             $table->string('country_name', 64);
             $table->string('region_name', 128);
             $table->string('city_name', 128);
-            $table->date('date_action', 128);
+//            $table->integer('latitude')->nullable();
+//            $table->integer('longitude')->nullable();
+//            $table->string('zip_code', 30)->nullable();
+//            $table->string('time_zone', 30)->nullable();
+//            $table->string('user_agent', 512)->nullable();
             $table->timestamps();
+            $table->date('date_action', 128)->nullable();
         });
     }
 
