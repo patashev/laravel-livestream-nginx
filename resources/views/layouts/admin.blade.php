@@ -7,7 +7,7 @@
         <meta name="author" content="{!! config('app.author') !!}">
         <meta name="keywords" content="{!! config('app.keywords') !!}">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <meta name="description" content="{{ isset($description) ? $description : config('app.description') }}"/>
+
 
         @include('titan::partials.favicons')
 
