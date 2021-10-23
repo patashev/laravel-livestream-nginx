@@ -21,6 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('cellphone', 50)->nullable();
             $table->string('telephone', 50)->nullable();
             $table->string('image')->nullable();
+	    $table->string('stream_key', 50)->nullable();
+	    $table->string('api_key', 50)->nullable();
             $table->string('gender', 10)->nullable();
             $table->date('born_at')->nullable();
             $table->string('password', 60)->nullable();

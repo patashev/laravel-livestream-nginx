@@ -188,7 +188,6 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\HelperServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
-        Weglot\Translate\TranslateServiceProvider::class,
     ],
 
     /*
