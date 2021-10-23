@@ -1,0 +1,8 @@
+{
+    "/assets/css/vendor.css": "/assets/css/vendor.css",
+    "/public/css/website.css": "/public/css/website.css",
+    "/public/js/website.js": "/public/js/website.js",
+    "/public/css/admin.css": "/public/css/admin.css",
+    "/public/js/admin.js": "/public/js/admin.js",
+    "/public/js/video-script.js": "/public/js/video-script.js"
+}
