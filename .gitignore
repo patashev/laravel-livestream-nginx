@@ -4,7 +4,8 @@ public/hot
 public/storage
 public/uploads/videos
 public/uploads/photos
-public/assets/
+public/uploads/documents
+public/uploads/embed_codes
 public/node_modules
 storage/framework/views
 storage/*.key

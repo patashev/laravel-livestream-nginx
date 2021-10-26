@@ -1,0 +1,49 @@
+/*--------------------------------------------------------------------------------------*/
+.header{
+  background: #0f1f39;
+  background: -moz-linear-gradient(top, #0c284d 0%, #0f1f39 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#0c284d), color-stop(100%,#0f1f39));
+  background: -webkit-linear-gradient(top, #0c284d 0%,#0f1f39 100%);
+  background: -o-linear-gradient(top, #0c284d 0%,#0f1f39 100%);
+  background: -ms-linear-gradient(top, #0c284d 0%,#0f1f39 100%);
+  background: linear-gradient(to bottom, #0c284d 0%,#0f1f39 100%);
+}
+
+.page-header{
+  background: none !important;
+}
+
+
+.latest-news {
+    border: 1px solid #D9D9D9;
+    overflow: hidden;
+    border-radius: 3px;
+}
+    .latest-news .bc {
+        overflow: hidden;
+        padding: 0 0 5px 0;
+    }
+.latest-news ol {
+    list-style: none;
+    margin: 10px 0;
+    padding: 0;
+}
+
+.latest-news li img {    vertical-align: middle }
+.latest-news time {
+    color: #AF0016;
+}
+.latest-news {
+    float: right;
+    margin: 5px 10px;
+    color: #5E5E5E;
+}
+.latest-news a.qp_next {    padding: 2px }
+.latest-news a.qp_prev {    padding: 2px }
+.latest-news a.qp_disabled {    color: #ccc }
+.latest-news span.qp_counter {    padding: 2px }
+.latest-news a.more-news {
+    float: left;
+    margin: 5px 10px;
+    color: #2D88CF;
+}
