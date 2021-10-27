@@ -4,6 +4,7 @@ public/hot
 public/storage/*
 public/uploads/videos/*
 public/uploads/photos/*
+public/uploads/images/*.jpeg
 public/uploads/documents/*
 public/uploads/embed_codes/*
 public/node_modules
