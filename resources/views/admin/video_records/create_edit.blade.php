@@ -198,10 +198,10 @@
             setDateTimePickerRange('#active_from', '#active_to');
             initSummerNote('.summernote');
 
-            <?php if (isset($item)):?>
-              initDatatablesAjaxVideoDetailes('#tbl-list-video', '{{ route('datatable/getVideoDetailes', $item->id) }}', 20);
-            <?php endif; ?>
-        })
+<?php if (isset($item)):?>
+initDatatablesAjaxVideoDetailes('#tbl-list-video', '{{ route('datatable/getVideoDetailes', $item->id) }}', 20);
+<?php endif;?>
+})
         var videoId = $('#videoId').val();
 
         function stopvideo(){

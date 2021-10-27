@@ -1,4 +1,3 @@
-
 <div class="box box-primary box-solid">
   <div class="box-header with-border">
     <h3 class="box-title">
@@ -6,7 +5,6 @@
       <span>{!! $photoable->name !!} Снимки</span>
     </h3>
   </div>
-
   <div class="box-body">
     @forelse($photos as $photo)
         <div class="col box" style="max-width: 240px; margin:5px;">
